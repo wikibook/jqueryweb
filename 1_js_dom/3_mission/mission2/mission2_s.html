@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;
+		
+		}
+		
+		div{
+			border: 1px solid #999999;
+			margin:20px;
+			margin-bottom:20px;
+		}
+		div div{
+			border: 1px dotted #CCC;
+			font-size:20px;	
+		}
+		
+		#panel {
+			width:600px;
+			overflow:visible;		
+		}
+		
+	</style>
+	<script>	
+		var nCount = 0;
+		var panel = null;
+		window.onload=function(){
+			// 초기화.
+			this.init();
+			// 타이머 시작.
+			this.start();
+		}
+		
+		// 초기화.
+		function init(){
+			//1. 새롭게 생성할 span태그를 추가할 부모 엘리먼트를 찾아냅니다.
+			this.panel = document.getElementById("panel");
+		}
+		
+		// 타이머 시작.
+		function start(){
+			//2. 0.02초마다 addTag()함수를 실행시키는 타이머를 실행합니다.
+			setInterval(this.addTag,20);
+		}
+		
+		// 새로운 span 요소 생성.
+		function addTag(){
+			this.nCount++;
+			//3.새로운 span태그를 생성합니다.
+			var span = document.createElement("span");
+			//4. 폰트크기와 글자 색을 랜덤으로 설정합니다.
+			span.style.color = "#"+(parseInt(Math.random()*0xffffff)).toString(16);;
+			span.style.fontSize	= (10+parseInt(Math.random()*40))+"px";
+			
+			//5. span태그의 display방식을 inline-block으로 만듬니다.
+			span.style.display = "inline-block";
+	
+			//6. 숫자값을 span의 내부텍스트 값으로 설정합니다.
+			span.innerHTML = this.nCount;
+			//7. 신규로 생성한 span태그를 부모 엘리먼트에 추가합니다.
+			this.panel.appendChild(span);
+			
+			//8. 추가되는 내용을 확인하기 위해서 스크롤을 시켜줍니다.
+			this.window.scrollTo(0,window.document.body.scrollHeight);
+		}
+	</script>
+</head>
+
+<body>
+	<div> 
+		<h4>미션2 - 1초에 하나씩 1부터 숫자를 증가시키며 #panel에 추가 시켜 주세요.<br> 단, 폰트 크기( 10px~ 50px)와 색은  랜덤으로 설정해주세요.</h4>
+		<div id="panel">
+		</div>
+	</div>
+</body>
+</html>

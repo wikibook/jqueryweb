@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+
+	<!--
+		Step #4 
+			- Ajax 적용
+			
+			Step #4-2
+				- XML 파일 정보에 담긴 메뉴 정보를 참고해 동적으로 메뉴 아이템 생성
+				
+			Step #4-1
+				- Ajax 개발 환경 구축
+
+		Step #3
+			-  메뉴 아이템 선택 처리.
+			
+			Step #3-3
+				- 메뉴 영역에서 마우스가 오버 또는 아웃될 때 선택 메뉴 아이템 처리
+	            - 메뉴 아이템 선택 처리 완료
+
+			Step #3-2
+				- 선택된 메뉴 아이템에 선택 스타일 적용
+				
+			Step #3-1
+				- 마우스가 메뉴 영역을 나가는 경우 오버돼 있는 메뉴 아이템의 오버 스타일을 제거해  일반 메뉴 아이템 스타일로 만들기.
+				
+		Step #2
+			- 메뉴 아이템 오버 효과 구현
+			Step #2-6
+				-  리팩토링2
+					- over효과를 처리하는 부분을 setOverMenuItemStyle(), removeOverMenuItemStyle() 함수로 
+					분리해서 재사용성이 높도록 만듬.
+					
+			Step #2-5
+				- 리팩토링
+					- 계속해서 사용할 메뉴의 정보들 재사용하기 쉽도록 data에 넣어둡니다.
+					  initMenuData();
+					  
+					- 메뉴초기화에 관련된 내용도 따로 띠어내도록 하죠
+					 initEventListener();
+					 
+			Step #2-4
+				- 중복 적용된 오버 스타일 처리
+				
+			Step #2-3
+				- Step #2-2문제 해결
+					- animation.stop()추가.
+					
+			Step #2-2
+				- 오버 효과 구현.
+				- 문제점 
+					- 메뉴 아이템에서 마우스를 좌우로 빠르게 움직이게 되는 경우, 마우스의 움직임을 멈춘 상태에서도
+					 잔상처럼 계속해서 움직이는 증상이 나타남.
+					 
+			step #2-1
+				- 메뉴 아이템에 이벤트 리스너 등록
+		 
+		Step #1
+	       	- 메뉴 구조 잡기.
+	-->	
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul.menu{			
+			background-color:#cccccc;
+			width:700px;
+			height:60px;
+			position:absolute;
+			left:50px;
+			top:50px;
+			overflow:hidden;
+			padding-left:20px;
+		}
+		
+		ul.menu li{
+			margin-top:15px;
+			background-color:#ffffff;
+			overflow:hidden;
+			height:30px;	
+			float:left;		
+		}
+		
+		ul.menu li div{		
+			position:relative;
+		}
+			
+	</style>
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script  type="text/javascript"  src="../libs/jquery.easing.1.3.js"></script>
+	<script>
+		// 애니메이션 시간을 상수로 설정합니다.
+		var OVER_ANIMATION_TIME	= 200;
+		var OUT_ANIMATION_TIME = 200;
+		
+		// 메뉴를 담을 변수.
+		var $menu;
+		
+		// 메뉴 아이템들이 담을 변수.
+		var $menuItems;
+		// 오버된 메뉴 아이템을 담을 변수.
+		var $overMenuItem;
+		
+		// 선택된 메뉴 아이템을 담을 변수.
+		var $selectMenuItem;
+		
+		// 선택된 메뉴아이템이 있는지 체크유무값을 담을 변수.
+		var bSelectActive;
+		
+		// XMLHttpRequest 객체.
+		var xmlHttp;
+		
+		$(document).ready(function(){
+			/*
+			
+			initMenuData();
+			initEventListener();
+			
+			 */
+			loadMenuXML();
+		 });
+		 
+		  
+		 // XMLHttpRequest를 미리 생성해 놓습니다.
+		function loadMenuXML(){		
+			// 1. 브라우저에 따른 XMLHttpRequest생성하기.
+			this.xmlHttp = this.createXMLHTTPObject();
+			
+			// 2. 요청에 대한 응답처리 이벤트 리스너 등록.
+			this.xmlHttp.onreadystatechange = function(){
+				on_ReadyStateChange();
+			};
+		
+			
+			// 3.서버로 보낼 데이터 생성.
+			
+			// 4. GET 방식으로 데이터 보내기, 응답은 비동기로 클라이언트<->서버간의 연결 요청준비.
+			this.xmlHttp.open("GET", "menu.xml", true);
+			
+			// 5. 실제 데이터 전송.
+			this.xmlHttp.send(null);
+		}
+		
+		
+		// 1. 브라우저에 따른 XMLHttpRequest생성하기.
+		function createXMLHTTPObject(){
+			var xhr = null;
+			if (window.XMLHttpRequest) {
+				// IE7버전 이상, 크롬, 사파리, 파이어폭스, 오페라등 거의 대부분의 브라우저에서는
+				// XMLHttpRequest객체를 제공합니다.
+				xhr = new XMLHttpRequest();
+			}
+			else {
+				// IE6,IE5 버전에서는 아래와 같이 XMLHttpRequest객체를 생성해야 합니다.
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+				
+			return xhr;
+		}
+			
+			
+		// 6. 응답처리.
+		function on_ReadyStateChange(){
+			// 4=데이터 전송 완료.(0=초기화전, 1=로딩중, 2=로딩됨, 3=대화상태)
+			if(this.xmlHttp.readyState==4){
+				//200은 에러 없음.(404=페이지가 존재하지 않음)
+				if(this.xmlHttp.status==200){
+					//7. 데이터 파싱처리.    
+					this.createMenuItems(this.xmlHttp.responseXML);
+					
+					// 메뉴 정도 초기화.
+					this.initMenuData();				
+					// 메뉴 이벤트 리스너 초기화.
+					this.initEventListener();
+				}
+				else{
+					alert("처리 중 에러가 발생했습니다.");
+				}
+			}
+		}
+	
+		
+		// 7.  XML포멧 데이터 처리. 동적으로 메뉴아이템 생성하기.
+		function createMenuItems(xmlInfo){
+			//1. 데이터를 접근 하기 쉽도록 XML정보를 jQuery로 변경합니다.
+			var $menuItems = $(xmlInfo).find("menuitem");
+			
+			var strDOM = "";
+			for(var i=0;i<$menuItems.length;i++){
+				//2. N번째 메뉴  아이템 정보를 구합니다.
+				var $menuItem = $menuItems.eq(i);
+				
+				//3. N번째 메뉴 아이템  패널을 생성합니다.			
+				strDOM +='<li>';
+				strDOM +='	  <div><img src="'+$menuItem.find("img").text()+'"></div>';
+				strDOM +='</li>';						
+			}
+			
+			//4. 이미지 컨테이너에 3번째에서 생성한 이미지 패널들을 추가합니다.
+			var $menuContainer = $("ul.menu");
+			$menuContainer.append(strDOM);
+		}
+		
+		  // 메뉴와 관련된 데이터를 초기화 합니다.
+		 function initMenuData(){
+		 	// 재사용할 메뉴를 변수에 담아놓기.
+			this.$menu = $("ul.menu");
+			
+			// 재사용할 메뉴아이템 목록을 변수에 담아놓기.
+		 	this.$menuItems	= $("ul.menu li");
+						
+			// 계속해서 사용할 항목들을 재사용하기 쉽도록 data에 넣어둡니다.
+			 this.$menuItems.each(function(index,data){
+			 	$(this).data("index", index);
+				$(this).data("menuItem",$(this).find("div"));	
+			 });
+			 
+			 bSelectActive = false;
+		 }
+		 
+		 // 메뉴와 관련된 이벤트 리스너들을 등록합니다.
+		 function initEventListener(){
+		 	// 마우스가 메뉴 영역을 나가는 경우, 오버되어 있는 메뉴아이템의  over스타일을 제거한다.
+		 	this.$menu.bind("mouseleave",function(e){		
+				if($overMenuItem){
+					// over스타일을 제거.
+					removeOverMenuItemStyle($overMenuItem)
+					$overMenuItem = null;
+					// 선택된 메뉴 아이템을  선택 스타일로 만들어줍니다.
+					setSelectMenuItemStyle($selectMenuItem);
+					
+					bSelectActive = false;
+				}
+			});
+	
+	
+		 	// 메뉴아이템에 마우스 이벤트 추가하기.
+			this.$menuItems.mouseenter(function(e){
+				// 초기 메뉴아이템에서 over되는 경우, 기존 선택된 메뉴아이템이 있는경우 선택스타일을 제거한다.
+				if(bSelectActive==false){
+					removeSelectMenuItemStyle($selectMenuItem);
+					bSelectActive = true;
+				}
+				setOverMenuItem($(this));
+			});
+			
+			
+			// 메뉴아이템이 click되는 경우 선택 메뉴로 등록시키기.
+			this.$menuItems.bind("click",function(e){
+				selectMenuItem($(this));
+			});
+		 }
+		 
+		 // over효과 실행.
+		 function setOverMenuItem($newMenuItem){
+		 	// 만약, 현재 오버된 메뉴가 새롭게 오버된 메뉴라면 나머지 내용을 실행이 되지 않도록 함.
+			// 주의 : jQuery 확장요소들은 실행시에 새롭게 생성되기 때문에, $newMenuItem == $overMenuItem를 비교하면 안됨)
+			 if(this.$overMenuItem!=null && $newMenuItem.data("index")==this.$overMenuItem.data("index"))
+				return;
+			
+	
+			// 기존에 오버된 메뉴아이템이 있다면 원래 메뉴 스타일(out상태)로 만든다.
+			 if(this.$overMenuItem)
+				this.removeOverMenuItemStyle(this.$overMenuItem);
+			
+			// 새롭게  over된 메뉴아이템을 over스타일로 만든다.
+			this.setOverMenuItemStyle($newMenuItem);
+			// 추후 over스타일을 없애주기 위해서  저장해 둬야합니다.
+			this.$overMenuItem = $newMenuItem;
+		 }
+		 
+		 // 메뉴를 over 상태로 만든다.
+		 function setOverMenuItemStyle($menuItem){
+		 	// 신규 메뉴를 over상태로 만든다.
+			var $menuItem = $menuItem.data("menuItem");
+			
+			$menuItem.stop();
+			$menuItem.animate({
+				top:-30
+			}, 
+			OVER_ANIMATION_TIME,"easeOutQuint");
+		 }
+		 
+		 // 메뉴에 적용되어 있는 over상태를 제거한다.(out상태가 됨)
+		 function removeOverMenuItemStyle($menuItem){
+		 	// 신규 메뉴를 over상태로 만든다.
+			var $menuItem = $menuItem.data("menuItem");
+			
+			$menuItem.stop();
+			$menuItem.animate({
+				top:0
+			}, 
+			OUT_ANIMATION_TIME,"easeOutQuint");
+		 }		 
+		 
+		 // 메뉴 선택처리.
+		 function selectMenuItem($menuItem){
+			this.$selectMenuItem = $menuItem;
+		 }
+		 
+		  // 선택메뉴 스타일 적용하기.
+		 function setSelectMenuItemStyle($menuItem){
+			 if($menuItem)
+				 this.setOverMenuItemStyle($menuItem);
+		 }
+		
+		 // 선텍메뉴 스타일 제거하기.
+		 function removeSelectMenuItemStyle($menuItem){
+		 	 if($menuItem)
+				 this.removeOverMenuItemStyle($menuItem);
+		 }
+	</script>
+</head>
+
+<body>
+	<ul class="menu">
+	
+	</ul>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	
+	<script>
+		/*
+			브라우저에 따른 XMLHttpRequest생성하기 - 방법2
+		*/
+		window.onload=function(){
+			var xmlHttp = HTTP.createXMLHTTPObject();		
+		}
+		
+		var HTTP = {};
+		HTTP._factories =[function(){return new XMLHttpRequest()},	// 표준
+			function(){return new ActiveObject("Msxml12.XMLHTTP")},	// 익스플로러
+			function(){return new ActiveXObject("Msxml13.XMLHTTP")},	// 
+			function(){return new ActiveXObject("Miscrosoft.XMLHTTP")}
+		];
+		
+		HTTP.createXMLHTTPObject=function(){
+			var xmlHTTP = null;
+			
+			for(var i=0;i<HTTP._factories.length;i++){
+				try{
+					xmlHTTP	= HTTP._factories[i]();
+				}
+				catch(e){
+					continue;
+				}
+				break;
+			}
+			
+			return xmlHTTP;
+		}
+		
+	</script>
+
+</head>
+
+<body>
+</body>
+</html>

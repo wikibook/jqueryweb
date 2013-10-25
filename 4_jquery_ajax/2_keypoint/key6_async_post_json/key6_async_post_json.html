@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script>
+        $(document).ready(function(){
+            // 서버로 보낼 데이터 생성
+            var param = {data1:"ddandongne", data2:"sample"};
+            // 서버에서 응답을 JSON 포맷으로 받게 된다는 사실을 명시하면
+            // JSON 포맷 문자열을 자바스크립트 객체로            만들어 성공 콜백 함수로
+            // 전달한 parseData에 넘겨줍니다.
+            $.post("data.php",param, parseData,"json");
+            alert("전송 시작!");
+        })
+		
+        // 7. JSON 포맷의 데이터 처리
+        function parseData(objInfo){
+           alert("파싱한 데이터: "+objInfo);		
+           console.log("파싱한 데이터: ",objInfo);
+        }		
+    </script>
+</head>
+
+<body>
+</body>
+</html>

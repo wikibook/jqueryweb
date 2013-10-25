@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		div{
+			border:1px #000000 solid;
+			margin:20px;
+		}
+	</style>
+	
+	<script>
+		window.onload=function(){			
+			var test1 = document.getElementById("test_1");
+			
+			// 모든 속성값이 담겨있는 객체
+			alert(test1.attributes);
+	
+			alert(test1.getAttribute("id"));			// 결과 : test_1
+			alert(test1.getAttribute("data-value"));	// 결과 : data1
+			
+			// 바로 접근하기.
+			alert(test1.id);					// 결과 : test_1
+		}
+	</script>
+</head>
+
+<body>
+	<div id="test_1" style="color:#ff0000;font-size:14px" data-value="data1"> 
+    	테스트1-1
+	</div>
+</body>
+</html>

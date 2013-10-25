@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+	<menuitem>
+		<img>images/menu_1.png</img>
+	</menuitem>
+	<menuitem>
+		<img>images/menu_2.png</img>
+	</menuitem>
+	<menuitem>
+		<img>images/menu_3.png</img>
+	</menuitem>
+	<menuitem>
+		<img>images/menu_4.png</img>
+	</menuitem>
+	<menuitem>
+		<img>images/menu_5.png</img>
+	</menuitem>
+</menu>

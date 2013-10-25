@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script>
+		$(document).ready(function(){
+					
+			// 서버로 보낼 매개변수
+            var param = {data1:"ddandongne", data2:"sample"};
+            /*
+                get(),getJSON(),post(),ajax()과 같은 jQuery Ajax 함수 내부에는 
+                다음과 같은 작업을 처리하는 루틴이 포함돼 있습니다.
+                    1. XMLHtpRequest 객체 생성
+                    2. 요청에 대한 응답 처리 이벤트 리스너 등록
+                    3. 서버로 보낼 데이터 데이터 생성
+                    4. 클라이언트와 서버 간의 연결 요청 준비(open() 메서드 이용).
+                        4-1. 서버로 보낼 데이터 전송 방식 설정(GET, POST 중 선택)
+                        4-2. 서버 응답 방식 설정(동기, 비동기 중 선택)
+                    5. 실제 데이터 전송(send() 메서드 이용)
+                    6. 응답 처리			 
+                모든 내용이 정상적으로 실행되면 success로 전달한 콜백 parseData() 함수가 실행됩니다.
+            */ 
+            $.get("data.php",param, parseData);
+            alert("전송 시작!");
+
+		});		
+		//7. CSV 포맷의 데이터 처리
+		function parseData(strText){
+			alert("서버에서 받은 원본 데이터  : "+strText);
+			
+			var aryData = strText.split("|");
+			var objResult = {};
+			for(var i=0;i<aryData.length;i++){
+			    var keyValue = aryData[i].split("=");
+			    objResult[keyValue[0]] = keyValue[1];
+			}
+			alert("파싱한 데이터 : "+objResult);
+			//console.log("파싱한 데이터 : ",objResult);
+		}
+
+	</script>
+</head>
+
+<body>
+</body>
+</html>

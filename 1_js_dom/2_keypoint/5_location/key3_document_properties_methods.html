@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		
+		#main{
+			border:1px dotted #ff0000;
+			width:500px;
+			margin:50px;
+		}
+		#rect{			
+			border:10px solid #ff0000;			
+			position:fixed;
+			left:120px;
+			top:100px;
+		}
+		
+	</style>
+       
+	<script>
+		window.onload=function(){
+			createData();
+			showInfo();
+		}
+
+		function createData(){
+			var main = document.getElementById("main");
+			var strInfo	= "";
+			for(var i=0;i<100;i++)	
+				strInfo	+= i+"<br>";
+		
+			main.innerHTML=strInfo;
+		}
+
+		function showInfo(){
+			var	rect = document.getElementById("rect");
+			var strInfo	= "";
+			strInfo = "document.body.scrollWidth = "+document.body.scrollWidth+"<br>";
+			strInfo += "document.body.scrollHeight = "+document.body.scrollHeight+"<br>";
+			rect.innerHTML=strInfo;
+		}		
+	</script>
+</head>
+
+<body>
+	<div id="main">             
+    </div>
+    <div id="rect">                   
+	</div>
+</body>
+</html>

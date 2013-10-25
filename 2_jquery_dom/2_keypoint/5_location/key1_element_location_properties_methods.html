@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		
+		#main{
+			border:1px dotted #ff0000;
+			width:500px;
+			margin:50px;
+		}
+		
+		#container{
+			width:400px;
+			height:400px;
+			position:absolute;
+			left:200px;
+			top:100px;
+			
+			border:1px dotted #ff0000;
+		}
+		#rect{
+			padding:10px;
+			margin:10px;
+			width:120px;
+			height:100px;
+			border:10px solid #ff0000;
+			background-color:#FFFFFF;
+			position:absolute;
+			
+			left:100px;
+			top:100px;
+			cursor:move;
+			resize:both;
+			-moz-resize:both;
+			overflow:auto;
+			min-width:100px;
+			min-height:100px;
+			max-width:300px;
+			max-height:300px;
+		
+			-webkit-user-select:none;
+		}
+		
+		#info{		
+			border:1px solid #ff0000;
+			position:fixed;
+			background-color:#FFFFFF;		
+		}
+	
+	</style>
+	   
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script>
+		var rect;
+		var container;
+		var info;
+		var nSW = 5;
+		$(document).ready(function(){
+			rect = $("#rect");
+			info = $("#info");
+			container = $("#container");
+			
+			showInfo();
+				
+			rect.bind("mousedown",on_DownRect);
+			rect.bind("dragend",on_DragEnd);	
+		});
+		
+		function showInfo(){
+			var strInfo	="";
+			strInfo		="position().left, offsetLeft = "+rect.position().left+"<br>";
+			strInfo		+="position().top, offsetTop = "+rect.position().top+"<br>";
+			strInfo		+="outerWidth(), offsetWidth = "+rect.outerWidth()+"<br>";
+			strInfo		+="outerHeight(), offsetHeight = "+rect.outerHeight()+"<br>";
+			strInfo		+="innerWidth() = "+rect.innerWidth()+"<br>";
+			strInfo		+="innerHeight() = "+rect.innerHeight()+"<br>";
+			
+			strInfo		+="width() = "+rect.width()+"<br>";
+			strInfo		+="height() = "+rect.height()+"<br>";
+			strInfo		+="clientTop = _<br>";
+			strInfo		+="clientLeift = _<br>";
+			strInfo		+="clientWidth = _<br>";
+			strInfo		+="clientHeight = _<br>";
+			strInfo		+="scrollLeft(), scrollLeft = "+rect.scrollLeft()+"<br>";
+			strInfo		+="scrollTop(), scrollTop = "+rect.scrollTop()+"<br>";
+			strInfo		+="scrollWidth = <br>";
+			strInfo		+="scrollHeight = <br>";
+			strInfo		+="clientRect.width = <br>";
+			strInfo		+="clientRect.height = <br>";
+			strInfo		+="offset().top, clientRect.top = "+rect.offset().top+"<br>";
+			strInfo		+="clientRect.right = _<br>";
+			strInfo		+="clientRect.bottom = _<br>";
+			strInfo		+="offset().left, clientRect.left = "+rect.offset().left+"<br><br>";	
+			strInfo		+="window.width() = "+$(window).width()+"<br>";	
+			strInfo		+="window.height() = "+$(window).height()+"<br>";	
+			strInfo		+="document.width() = "+$(document).width()+"<br>";	
+			strInfo		+="document.width() = "+$(document).height()+"<br>";	
+			info.html(strInfo);
+		}
+		
+		function on_Change(){
+			showInfo();
+		}
+		
+		function on_DragEnd(){
+			showInfo();
+		}
+		
+		var nStartX = 0;
+		var nStartY = 0;
+		function on_DownRect(e){
+			nStartX	= e.offsetX;
+			nStartY	= e.offsetY;	
+			window.onmousemove=on_MoveRect;
+			window.onmouseup=on_UpRect;
+					
+		}
+		
+		function on_UpRect(e){
+			window.onmousemove = null;
+			window.onmouseup = null;		
+		}
+		
+		function on_MoveRect(e){	
+			
+			rect.css("left", (e.clientX-nStartX-211));
+			rect.css("top", (e.clientY-nStartY-111));	
+			showInfo();	
+		}
+	</script>
+</head>
+
+<body>
+	<div id="container">
+		<div id="rect"> 
+			1<br>
+			2<br>    
+			3<br>    
+			4<br>    
+			5<br>    
+			6<br>    
+			7<br>    
+			8<br>    
+			9<br>    
+			10<br>    
+			11<br>    
+			12<br>                  
+			</div>
+		</div>
+	<div id="info"> 
+	</div>
+</body>
+</html>

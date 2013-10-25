@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		.myClass{
+			border:1px #000000 solid;
+			margin:20px;
+		}
+	</style>
+	<script>	
+		window.onload=function(){	
+			/*
+				속성값 변경하기.
+			*/
+			var test1 = document.getElementById("test_1");
+			
+			// 기본적으로 제공하는 속성인 경우 바로 속성값 설정하기.		
+			test1.className	="myClass";
+			
+			// 사용자 정의 속성인 경우 setAttribute()메소드를 이용해서 속성값 설정하기.
+			test1.setAttribute("data-value", "new-data1");
+		}
+	</script>
+</head>
+
+<body>
+	<div id="test_1" style="color:#ff0000;font-size:14px" data-value="data1"> 
+		테스트1-1
+	</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;	
+		}
+		
+		div{
+			border: 1px solid #999999;
+			margin:20px;
+			margin-bottom:20px;
+		}
+		div div{
+			border: 1px dotted #CCC;
+			font-size:20px;	
+		}
+		
+		#panel{
+			width:600px;
+			overflow:visible;		
+		}
+		
+	</style>
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script>	
+		var nCount		=0;
+		var $panel			=null;
+		//1. 시작이벤트 설정.
+		jQuery(document).ready(function(){
+			// 초기화.
+			init();
+			// 타이머 시작.
+			start();
+		});
+		
+		// 초기화.
+		function init(){
+			//2.  #panel Element 구하기.
+			$panel = $("#panel");
+		}
+		
+		// 타이머 시작.
+		function start(){
+			setInterval(addTag3,20);
+		}
+		
+		function addTag(){
+			nCount++;
+			//3. span Element 생성.
+			var $span = $("<span></span>");
+					
+			var color = "#"+(parseInt(Math.random()*0xffffff)).toString(16);;
+			var fontSize = (10+parseInt(Math.random()*40))+"px";
+			var display = "inline-block";
+			
+			//4. css 스타일 설정.
+			$span.css("color",color);
+			$span.css("fontSize",fontSize);
+			$span.css("display",display);
+			$span.html(nCount);
+			
+			//5. panel 엘러먼스테 새로 생성한 span 엘러먼트 추가하기.         
+			$panel.append($span);
+			
+			this.window.scrollTo(0,window.document.body.scrollHeight);			
+		}
+		
+		function addTag2(){
+			nCount++;
+			var $span = $("<span></span>");
+					
+			var color = "#"+(parseInt(Math.random()*0xffffff)).toString(16);;
+			var fontSize = (10+parseInt(Math.random()*40))+"px";
+			var display ="inline-block";
+			
+			$span.css({color:color, fontSize:fontSize, display:display});
+			
+			$span.html(this.nCount);
+			$panel.append($span);
+			
+			this.window.scrollTo(0,window.document.body.scrollHeight);			
+		}
+		
+		function addTag3(){		
+			nCount++;
+			var color = "#"+(parseInt(Math.random()*0xffffff)).toString(16);;
+			var fontSize = (10+parseInt(Math.random()*40))+"px";
+			var display = "inline-block";
+			
+			$("<span></span>")
+			 .html(nCount)
+			 .css({color:color, fontSize:fontSize, display:display})
+			 .appendTo($panel);
+						
+			this.window.scrollTo(0,window.document.body.scrollHeight);			
+		}
+	</script>
+</head>
+
+<body>
+	<div> 
+		<h4>미션2 - 1초에 하나씩 1부터 숫자를 증가시키며 #panel에 추가 시켜 주세요.<br> 단, 폰트 크기( 10px~ 20px)와 색은  랜덤으로 설정해주세요.</h4>
+		<div id="panel">
+			1
+		</div>
+	</div>       
+</body>
+</html>

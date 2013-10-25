@@ -1,0 +1,142 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<style>
+		#banner_container{
+			position:relative;
+			width:128px;
+			
+			height:128px;
+			border:1px solid #cccccc;
+			top:100px;
+			left:100px;
+			overflow:hidden;;
+			
+		}
+		
+		#banner_container div{
+			position:absolute;
+			width:128px;
+			height:128px;
+			
+			top:0;
+			background:#ffffff;
+		}
+		
+		
+	</style>
+	
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script  type="text/javascript" src="../libs/jquery.easing.1.3.js"></script>
+	<script type="text/javascript">    	
+		var ANIMATION_DURATION = 500;
+		var IMAGE_HEIGHT = 128;
+		
+		var $bannerItems;
+		var $bannerContainer;
+		
+		var nCurrentIndex;
+		var nBannerCount;
+		var nTimerID;
+	//1.	
+		window.onload = function(){
+			// 요소 초기화.	
+			this.init();
+			// 배너 위치 설정하기.
+			this.setBannerPosition();
+			// 배너 움직이기.
+			this.startMove();
+			
+		}
+	//2.	
+		// 요소 초기화.	
+		function init(){
+			// 계속해서 사용할 요소들이기 때문에 전역변수에 담아 둡니다.
+			this.$bannerContainer = document.getElementById("#banner_container");
+			this.$bannerItems = $("#banner_container div");
+			this.nCurrentIndex = 0;
+			this.nTimerID = 0;	
+			// 전체 배너 갯수.
+			this.nBannerCount = this.$bannerItems.length;		
+		}
+	//3.	
+		// 현재배너와 다음배너의 위치를 초기화 시켜 줍니다.
+		function setBannerPosition(){
+			// 모든 배너의 위치값을 출력화면 영역에서 보이지 않도록 만든다. 
+			this.$bannerItems.css({opacity:0, top:IMAGE_HEIGHT});	
+			
+			// 첫번째 배너=현재 버너를 화면에 활성화 시켜준다.
+			this.$bannerItems.eq(0).css({opacity:1, top:0});
+		}
+		
+		// 배너 움직이기.
+		function startMove(){			
+			this.nTimerID = setInterval(this.on_StartMove,1000)	
+		}	
+		
+		// 다음 배너 계산하기.	
+		function on_StartMove(){
+			if(this.nCurrentIndex+1>=this.nBannerCount)
+				this.showBannerAt(0);
+			else
+				this.showBannerAt(this.nCurrentIndex+1);			
+		}
+	//4.	
+		// nIndex에 해당하는 배너를 현재배너로 활성화시킴.
+		function showBannerAt(nIndex){
+			if(this.nCurrentIndex==nIndex || nIndex<0 || nIndex>=this.nBannerCount)
+				return;
+			
+			// 현재배너를 구한다.
+			var $currentBanner = this.$bannerItems.eq(this.nCurrentIndex);
+			// 다음배너를 구한다.
+			var $nextBanner = this.$bannerItems.eq(nIndex);
+			
+			// 현재배너를 위쪽으로 움직이기.
+			$currentBanner.animate({top:-IMAGE_HEIGHT,opacit:0},
+				ANIMATION_DURATION,
+				"easeOutQuint"
+			);
+					
+			// 다음배너를 움직이기 전에, 다음배너위치의 시작위치 설정하기.
+			$nextBanner.css({top:IMAGE_HEIGHT, opacity:0});
+			
+			$nextBanner.animate({top:0,opacity:1},
+				ANIMATION_DURATION,
+				"easeOutQuint"
+			);
+			
+			// 현재배너 index값을 업데이트 시켜준다.
+			this.nCurrentIndex = nIndex;
+		}		
+	</script>
+</head>
+
+<body>
+	<div id="banner_container">
+		<div>
+		<img src="images/img1.jpg">
+		</div>
+		<div>
+			<img src="images/img2.jpg">
+		</div>
+		<div>
+			<img src="images/img3.jpg">
+		</div>
+		<div>
+			<img src="images/img4.jpg">
+		</div>
+		<div>
+			<img src="images/img5.jpg">
+		</div>
+		<div>
+			<img src="images/img6.jpg">
+		</div>
+	</div>    
+</body>
+</html>
+
+
+

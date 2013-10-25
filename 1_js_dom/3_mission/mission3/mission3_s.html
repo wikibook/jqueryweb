@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;	
+		}
+		
+		div{
+			border: 1px solid #999999;
+			margin:20px;
+			margin-bottom:20px;
+		}
+		div div{
+			border: 1px dotted #CCC;
+			font-size:20px;	
+		}
+	</style>
+	
+	<script>
+		var nCount = 0;
+		var panel = null;
+		var img1 = null;
+		window.onload=function(){
+			// 초기화.
+			this.init();
+			// 타이머 시작.
+			this.start();
+		}
+		
+		//초기화.
+		function init(){
+			// 앞으로 계속해서 사용하게 될 내용이니 전역변수에 담아두죠.
+			this.panel = document.getElementById("panel");
+			this.img1 = document.getElementById("img1");
+		}
+		
+		// 타이머 시작.
+		function start(){
+			// 1초에 한번씩 changeImage()함수를 호출하는 타이머를 실행시킵니다.
+			setInterval(this.changeImage,1000);
+		}
+		
+		// 이미지 변경은 여기에서.
+		function changeImage(){
+			this.nCount++;
+			// 현재 숫자값이 10을 넘게 되면 다시 1로 만들어주면 되겠죠?
+			if(this.nCount>=10)
+				this.nCount	= 1;
+			
+			// 이미지 변경시키기.
+			this.img1.src = "images/img"+this.nCount+".jpg";
+		}
+	</script> 
+</head>
+
+<body>
+	<div> 
+		<h4>미션3 - 1초에 한번씩 이미지를 순차적으로 변환시켜 주세요.<br> 단, 이미지는 9개가 있습니다. 9개까지 출력된 경우 다시 첫번째 이미지부터 출력시켜주세요.</h4>
+		<div id="panel">
+			<img id="img1" src="images/img1.jpg" alt="이미지">
+		</div>
+	</div>
+</body>
+</html>

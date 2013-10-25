@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;		
+		}		
+		
+		#panel{
+			width:600px;
+			height:300px;
+			border:1px solid #999;
+			position:relative;
+		}
+		
+		#bar{
+			position:absolute;
+			left:50px;
+			top:190px;
+			width:500px;
+			height:20px;
+			
+			background:#F30;
+		}
+		
+		#img1{
+			position:absolute;
+			left:50px;
+			top:120px;
+			
+		}
+		
+		#nav{
+			text-align:center;
+			width:600px;
+		}
+		
+	</style>
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	</script>
+	<script>
+		var nEndX;
+		var nCurrentX;
+		var nStartX;
+		var nTimerID;
+		var nStep;
+		var $objIMG;
+	// 1. 시작함수 설정하기.
+		window.onload=function(){
+			// 요소들을 초기화 합니다.
+			init();
+			// 이벤트를 초기화 합니다.
+			initEventListener();
+			
+		}
+	// 2. 이벤트 설정하기.	
+		function initEventListener(){
+			// 시작버튼 이벤트 리스너 등록
+			$("#btn_start").bind("click",function(){
+				start();
+			});
+			
+			// 정지버튼 이벤트 리스너 등록.
+			$("#btn_stop").bind("click",function(){
+				stopMove();
+			});
+			
+		}
+		
+		function init(){
+	//3. bar Element 찾기.
+			var $objBar = $("#bar");
+			
+	//4. bar 위치관련 속성값 설정하기.
+			
+			// 시작위치 구하기.
+			this.nStartX = $objBar.position().left;
+			// 마지막 위치.(시작위치 + bar의 넓이 - 이미지 넓이)
+			this.nEndX = $objBar.width();
+			this.nEndX += this.nStartX;
+			
+			
+			// 이미지의 현재 위치를 시작위치로 설정.
+			this.nCurrentX = this.nStartX;
+					
+			nStep = 2;
+			nTimerID = 0;
+	//5. img1 element찾기.		
+			// 계속해서 사용하게 될 이미지 엘리먼트를 변수에 저장.
+			this.$objIMG = $("#img1");
+			this.nEndX -= $objIMG.width()
+	
+		}
+		
+		// 타이머 실행.
+		function start(){
+			// 0.03초에 한번씩 startMove함수 실행.
+			if(this.nTimerID==0)
+				this.nTimerID = setInterval(this.startMove,30);
+			
+		}
+		
+		// 이미지를 상하로 스크롤 시키는 함수.
+		function startMove(){
+			this.nCurrentX += this.nStep;
+			
+			// 현재 스크롤 위치가 마지막 위치인지 판단하기
+			if(this.nCurrentX>this.nEndX){
+				this.nCurrentX = this.nEndX;
+				this.nStep = -2
+			}
+			// 현재 스크롤 위치가 시작 위치인지 판단하기.
+			if(this.nCurrentX<this.nStartX){
+				this.nCurrentX = this.nStartX;
+				this.nStep = 2;
+			}
+			
+	//6. 스타일 설정하기.		
+			this.$objIMG.css("left",this.nCurrentX);			
+		}
+		
+		// 타이머 멈추기.
+		function stopMove(){
+			if(this.nTimerID!=0){
+				clearInterval(this.nTimerID);
+				this.nTimerID = 0;
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div> 
+		<h4>#img1을 #bar의 영역에서 계속 좌우로 움직이도록 만들어주세요.</h4>
+		<div id="panel">
+			<div id="bar"> </div>
+			<div id="img1">
+				<img src="fish.png">
+			</div>
+		</div>
+		<div id="nav">
+			<button id="btn_start">시작</button>
+			<button id="btn_stop">멈춤</button>
+		</div>
+	</div>
+</body>
+</html>

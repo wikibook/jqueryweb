@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<style>	
+		.banner_menu .banner_container{
+			position:relative;	
+			width:980px;
+			height:327px;			
+			margin:10px;			
+			overflow:hidden;
+			border:0px solid #ff0000;
+		}
+		
+		.banner_menu .banner_container #banner_content{	
+			position:absolute;
+			/* 980*4 */
+			width: 3920px;
+		}		
+		
+		.banner_menu .banner_container #banner_content img{
+			float:left;
+		}
+
+
+	</style> 
+	
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script  type="text/javascript" src="../libs/jquery.easing.1.3.js"></script>
+	<script>		
+		$(document).ready(function(){
+			// animate()함수를 이용한 애니메이션 실행시키기.
+			$("#banner_content").animate({left:-980},3000);	
+		});
+	</script>	
+</head>
+
+<body>	
+	<div class="banner_menu">
+		<div class="banner_container">
+			<div id="banner_content">
+				<img src="../images/img1.jpg" >
+				<img src="../images/img2.jpg" >
+				<img src="../images/img3.jpg" >
+				<img src="../images/img4.jpg" >
+			</div>   			                
+		</div>
+	<div>
+</body>
+</html>
+

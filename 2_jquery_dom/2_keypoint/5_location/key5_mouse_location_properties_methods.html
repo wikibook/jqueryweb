@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body
+		{
+			margin:0;
+			padding:0;
+		}
+		
+		#main
+		{
+			border:1px dotted #ff0000;
+			width:500px;
+			margin:50px;
+		}
+		
+		#container
+		{
+			width:400px;
+			height:400px;
+			position:absolute;
+			left:150px;
+			top:100px;
+			
+			border:1px dotted #ff0000;
+		}
+		#rect
+		{
+			width:100px;
+			height:100px;
+			border:10px solid #ff0000;
+			background-color:#FFFFFF;
+			position:absolute;
+			
+			left:100px;
+			top:100px;
+			
+		
+			overflow:auto;
+			min-width:100px;
+			min-height:100px;
+			max-width:300px;
+			max-height:300px;
+			-webkit-user-select:none;
+		}
+		
+		#info
+		{
+			position:absolute;
+			border:1px solid #ff0000;
+		
+			background-color:#FFFFFF;
+			
+		}
+	
+	</style>
+   
+   <script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+   <script>
+
+		var $rect;
+		
+		var $info;
+		var nSW = 5;
+		window.onload=function(){
+			$rect = $("#rect");
+			$info = $("#info");
+			
+			$rect.bind("mousemove",on_MouseMove);	
+		}
+		
+		function on_MouseMove(e){
+			var strInfo	="";
+			strInfo		="clientX = "+e.clientX+"<br>";
+			strInfo		+="clientY = "+e.clientY+"<br>";
+		
+			strInfo		+="pageX = "+e.pageX+"<br>";
+			strInfo		+="pageY = "+e.pageY+"<br>";
+			strInfo		+="offsetX = "+e.offsetX+"<br>";
+			strInfo		+="offsetY = "+e.offsetY+"<br>";
+			strInfo		+="screenX = "+e.screenX+"<br>";
+			strInfo		+="screenY = "+e.screenY+"<br>";
+			
+			info.innerHTML = strInfo;
+		}
+	</script>
+</head>
+
+<body>
+	<div id="container">
+		<div id="info"> 		   
+		</div>
+		<div id="rect"> 
+			1<br>
+			2<br>    
+			3<br>    
+			4<br>                     
+		</div>
+	</div>
+</body>
+</html>

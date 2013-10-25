@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<image_list>
+	<image>
+		<title>이미지1</title>
+		<url>images/img1.jpg</url>
+	</image>
+	
+	<image>
+		<title>이미지2</title>
+		<url>images/img2.jpg</url>
+	</image>
+	
+	<image>
+		<title>이미지4</title>
+		<url>images/img4.jpg</url>
+	</image>
+	
+	<image>
+		<title>이미지5</title>
+		<url>images/img5.jpg</url>
+	</image>
+</image_list>
+
+

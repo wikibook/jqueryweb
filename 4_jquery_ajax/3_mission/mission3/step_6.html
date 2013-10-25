@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		#banner_container{
+			position:relative;
+			width:128px;
+			
+			height:128px;
+			border:1px solid #cccccc;
+			top:100px;
+			left:100px;
+			
+			overflow:hidden;
+		}
+		
+		#banner_container div{
+			position:absolute;
+			width:128px;
+			height:128px;
+			
+			top:0;
+			top:0;
+			background:#ffffff;
+		}
+	</style>
+	
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"></script>
+	</script>
+	<script  type="text/javascript"  src="../libs/jquery.easing.1.3.js"></script>
+		
+	<script>
+		
+		var ANIMATION_DURATION = 500;
+		var IMAGE_HEIGHT = 128;
+		var $banner_container;
+		var $bannerItems;
+		
+		var nCurrentIndex;
+		var imageHeight;
+		var nBannerCount;
+		var nTimerID;
+		
+		jQuery(document).ready(function(){
+			startLoadFile();
+		});
+		
+		
+		function startLoadFile(){			
+			$.getJSON("banner.json", true, function(objBannerInfo){
+				createImages(objBannerInfo);
+				init();
+				setBannerPosition();
+				startMove();
+			});
+		}
+		
+		
+		//7.JSON 포멧 데이터 처리.
+		function createImages(objBannerInfo){
+						var banners = objBannerInfo.rows;						var strDOM = "";
+			for(var i=0;i<banners.length;i++){
+				//2.N번째 이미지 정보를 구합니다.				var banner = banners[i];
+			
+				//3. N번째 이미지 패널을 생성합니다.				strDOM +='<div>'				strDOM +='    <img src="'+banner.url+'" alt="'+banner.title+'">';				strDOM +='</div>';			}				//4.배너 컨테이너에 3번째에서 생성한 이미지 패널을 추가합니다.			var $banner_container = $("#banner_container");			$banner_container.append(strDOM);		}
+		
+		function init(){
+			this.$banner_container = $("#banner_container");
+			this.$bannerItems = $("#banner_container div");
+			this.nCurrentIndex = 0;
+			this.nTimerID = 0;
+			this.nBannerCount = this.$bannerItems.length;
+		}
+		
+		function setBannerPosition(){
+			this.$bannerItems.css({opacity:0, top:IMAGE_HEIGHT});
+			this.$bannerItems.eq(0).css({opacity:1, top:0});
+		}
+		
+		function startMove(){
+			this.nTimerID = setInterval(on_StartMove,1000)
+		}
+		
+		function on_StartMove(){
+			if(nCurrentIndex+1>=nBannerCount)
+				showBannerAt(0);
+			else
+				showBannerAt(nCurrentIndex+1);	
+		}
+		
+		function showBannerAt(nIndex){
+			if(nCurrentIndex==nIndex || nIndex<0 || nIndex>=nBannerCount)
+				return;
+			
+			var $objOld = $bannerItems.eq(nCurrentIndex);
+			var $objNew = $bannerItems.eq(nIndex);
+			
+			$objNew.css({top:IMAGE_HEIGHT, opacity:0});
+			
+			$objOld.animate({top:-IMAGE_HEIGHT,opacit:0},
+			ANIMATION_DURATION,"easeOutQuint");
+			 
+			$objNew.animate({top:0,opacity:1},
+			ANIMATION_DURATION,"easeOutQuint");
+	 		
+			nCurrentIndex = nIndex;
+		}
+	</script>
+
+</head>
+
+<body>
+	<div> 
+		<h4></h4>
+    	</div>
+		<div id="banner_container" >
+      	<!-- 기존 배너을을 제거했습니다.-->
+      </div>    
+</body>
+</html>
+
+
+
+

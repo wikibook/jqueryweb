@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		div{
+			border:1px #000000 solid;
+			margin:20px;
+			font-size:24px;
+		}
+	</style>
+	<script type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script>
+		/*
+		window.onload=function(){
+			var test1 = document.getElementById("test_1");
+			test1.style.position = "absolute";
+			test1.style.left = "100px";
+			test1.style.color = "#ff0000";
+		}
+		*/
+		$(document).ready(function(){
+			//방법 1
+			$("#test_1").css("position", "absolute");
+			$("#test_1").css("left", "100px");
+			$("#test_1").css("color", "#ff0000");
+		
+			//방법 2
+			//$("#test_1").css({position:"absolute", left:"100px", color:"#ff0000"});
+		
+			//방법 3
+			//$("#test_1").css({position:"absolute", left:100, color:"#ff0000"});					
+		});
+	</script>
+</head>
+
+<body>
+	<div id="test_1" style="color:#ff0000"> 
+       	 	테스트1-1
+        </div>
+</body>
+</html>

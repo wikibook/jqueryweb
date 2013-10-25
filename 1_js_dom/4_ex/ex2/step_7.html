@@ -1,0 +1,177 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<!--
+			Step #7
+				- 페이드 인, 페이드 아웃 효과 추가하기(10분)
+				
+			Step #6
+				- 핵심 이슈 1을 적용해 롤링 배너 구현하기(1시간)
+				
+			Step #5
+				- 4단계를 JSTweener를 이용해 변경해보기(2시간)
+				
+			Step #4-1
+				- 리팩토링 - 커다란 함수를 여러 개의 조각으로 나누기
+				
+	        Step #4
+	        	- 단계2, 3단계를 합해서 두 개를 동시에 움직이기(10분)
+	                
+			Step #3
+				- 배너 하나를 아래에서 출력 영역으로 움직여보기(10분)
+			            
+			Step #2
+				- 배너 하나를 위쪽으로 움직여보기(10분)
+		
+			Step #1
+				- 배너 구조 잡기(1시간)	
+	-->
+	<style>
+		#banner_container{
+			position:relative;
+			width:128px;
+			
+			height:128px;
+			border:1px solid #cccccc;
+			top:100px;
+			left:100px;
+			overflow:hidden;;
+			
+		}
+		
+		#banner_container div{
+			position:absolute;
+			width:128px;
+			height:128px;
+			
+			top:0;
+			background:#ffffff;
+		}
+		
+		
+	</style>
+
+	<script src="JSTweener.js" type="text/javascript"></script>
+	<script>   
+	
+		
+		var bannerItems;	
+	    var bannerContainer;
+		
+		var nCurrentIndex;
+		var nBannerCount;
+		var nTimerID;
+		
+		window.onload = function(){
+			// 요소 초기화.	
+			init();
+			// 배너 위치 설정하기.
+			setBannerPosition();
+			// 배너 움직이기.
+			startMove();
+			
+		}
+		
+		// 요소 초기화.	
+		function init(){
+			// 계속해서 사용할 요소들이기 때문에 전역변수에 담아 둡니다.
+			this.bannerContainer = document.getElementById("banner_container");
+			this.bannerItems = this.bannerContainer.getElementsByTagName("div");
+			this.nCurrentIndex = 0;
+			this.nTimerID = 0;	
+			// 전체 배너 갯수.
+			this.nBannerCount = this.bannerItems.length;
+		
+		}
+		
+		// 현재배너와 다음배너의 위치를 초기화 시켜 줍니다.
+		function setBannerPosition(){
+			// 모든 배너의 위치값을 출력화면 영역에서 보이지 않도록 만든다. 
+			for(var i=0;i<this.nBannerCount;i++){
+				var item = bannerItems.item(i); 
+				item.style.top = 128;
+				item.style.opacity = 1;
+			}		
+			
+			// 첫번째 배너=현재 버너를 화면에 활성화 시켜준다.
+			bannerItems[0].style.top = "0px";
+			bannerItems[0].style.opacity = 1;
+		}
+		
+		// 배너 움직이기.
+		function startMove(){			
+			this.nTimerID = setInterval(on_StartMove,1000)	
+		}	
+		
+		// 다음 배너 계산하기.	
+		function on_StartMove(){
+			if(nCurrentIndex+1>=nBannerCount)
+				showBannerAt(0);
+			else
+				showBannerAt(nCurrentIndex+1);			
+		}
+		
+		// nIndex에 해당하는 배너를 현재배너로 활성화시킴.
+		function showBannerAt(nIndex){
+			if(nCurrentIndex==nIndex || nIndex<0 || nIndex>=nBannerCount)
+				return;
+			
+			// 현재배너를 구한다.
+			var currentBanner = bannerItems.item(nCurrentIndex);
+			// 다음배너를 구한다.
+			var nextBanner = bannerItems.item(nIndex);
+			
+			
+			// 현재배너를 위쪽으로 움직이기.
+			JSTweener.addTween(currentBanner.style, {
+				time: 0.5,
+				transition: 'easeInQuad',
+				top:-128,
+				opacity:0
+			});
+					
+			// 다음배너를 움직이기 전에, 다음배너위치의 시작위치 설정하기.
+			nextBanner.style.top = 128;
+			nextBanner.style.opacity = 0;
+			
+			// 다음배너를 출력화면영역으로 움직이기
+			JSTweener.addTween(nextBanner.style, {
+			    time: 0.5,
+			    transition:'easeInQuad',
+			    top:0,
+			    opacity:1 
+			     
+			});
+			// 현재배너 index값을 업데이트 시켜준다.
+			nCurrentIndex = nIndex;
+		}
+	</script>
+</head>
+
+<body>	
+	<div id="banner_container" >
+		<div>
+			<img src="images/img1.jpg" >
+		</div>
+		<div>
+			<img src="images/img2.jpg" >
+		</div>
+		<div>
+			<img src="images/img3.jpg" >
+		</div>
+		<div>
+			<img src="images/img4.jpg" >
+		</div>
+		<div>
+			<img src="images/img5.jpg" >
+		</div>
+		<div>
+			<img src="images/img6.jpg" >
+		</div>
+	</div>    
+</body>
+</html>
+
+
+

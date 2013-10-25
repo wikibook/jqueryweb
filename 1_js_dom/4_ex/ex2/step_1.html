@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<!--
+		/*		
+		 	Step #1
+		 		- 배너 구조 잡기(1시간)
+		 */
+	-->
+	
+	<style>
+		
+		#banner_container{
+			position:relative;
+			width:128px;		
+			height:128px;		
+			top:100px;
+			left:100px;		
+	
+			border:1px solid #cccccc;
+		}
+		
+		/* banner Item */
+		#banner_container div{
+			position:absolute;
+			width:128px;
+			height:128px;		
+			top:-128px;
+			background:#ffffff;
+			opacity:0.5;
+		}		
+	</style>
+</head>
+
+<body>
+	<div id="banner_container" >
+		<div>
+			<img src="images/img1.jpg">
+		</div>
+		<div>
+			<img src="images/img2.jpg">
+		</div>
+	</div>    
+</body>
+</html>
+
+
+

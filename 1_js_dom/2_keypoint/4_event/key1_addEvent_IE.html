@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body
+		{
+			font-size: 9pt;
+		}
+		#info{
+			width:400px;
+			
+			border:1px solid #000000;
+			
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			/*
+				이벤트 등록 방법 두가지.
+					1. 이벤트 함수를 이용하는 경우 (DOM Level 0)
+					2. IE Event를 이용하는 경우 				
+			*/
+			
+			var info= window.document.getElementById("info");
+			
+			// DOM Level 0방식으로 이벤트 리스너 등록하기.	
+			var btn_1 = window.document.getElementById("btn_1");
+			// 1-1. 일반 함수를 이벤트 리스너로 사용하는 경우.
+			btn_1.onclick = this.on_Click;
+			// 1-2. 임의의 함수를 이벤트 리스너로 사용하는 경우.
+			btn_1.onmouseover = function(e){
+				info.innerHTML+="마우스가 over되었습니다.<br>"	
+			}
+			
+			// IE Event 방식으로 이벤트 리스너 등록하기.
+			var btn_2 = window.document.getElementById("btn_2");		
+			// 2-1. 일반 함수를 이벤트 리스너로 사용하는 경우.
+			btn_2.attachEvent("onclick", this.on_Click);		
+			// 2-2. 임의의 함수를 이벤트 리스너로 사용하는 경우.
+			btn_2.attachEvent("onmouseover",function(e){
+				info.innerHTML+="마우스가 over되었습니다.<br>"				
+			});			
+		}
+		
+		function on_Click(e){
+			info.innerHTML+="버튼이 click되었습니다.<br>"
+		}
+	</script>
+</head>
+	<body>
+		<button id="btn_1">DOM Level 0방식 테스트 - 마우스를 올려보거나 클릭 보세요.</button><br>
+		<button id="btn_2">IE Event 방식 테스트 - 마우스를 올려보거나 클릭 보세요.</button>
+		<div id="info">이곳에 이벤트 이벤트 정보가 출력됩니다.<br></div>
+	</body>
+</html>
+

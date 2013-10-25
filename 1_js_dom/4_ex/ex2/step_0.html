@@ -1,0 +1,72 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<script>
+		
+		// 현재 활성화되어 있는 배너 index값 
+		var nCurrentIndex;
+		// 전체 배너 갯수.
+		var nBannerCount;
+		
+		window.onload=function(){
+			// 요소 초기화.
+			this.init();
+			// 배너를 움직이기 시작.
+			this.startTimer();
+		}
+		
+		// 요소 초기화.
+		function init(){
+			// 현재 활성화되어 있는 배너 index값 
+			this.nCurrentIndex	= 0;
+			// 배너 이미지가 10개라는 가정.
+			this.nBannerCount	= 10;
+		}
+				
+		function startTimer(){
+			// 3초마다 한번씩 startMove()함수 실행.		
+			setInterval(startMove,1000)
+		}
+		
+		// 배너 이동시키기.	
+		function startMove(){
+			
+			// 상품index값이 배너갯수보다 많으면 다시 첫번째 상품을 선택하도록 변경합니다.
+			if(this.nCurrentIndex+1>=this.nBannerCount)
+				this.showBannerAt(0);
+			else{
+				// 현재 선택된 index에 +1을 더해서 다음 배너정보 index값을 넘깁니다.
+				this.showBannerAt(this.nCurrentIndex+1);	
+			}
+			
+		}
+		// nIndex에 해당하는 배너를 활성화 시켜 줍니다.
+		function showBannerAt(nIndex){
+			// 현재선택되어 있는 index를 올드 index에 저장.
+			var oldIndex		= this.nCurrentIndex;
+			// 새로 선택되어야 할 index를 newIndex로 저장합니다.
+			var newIndex		= nIndex;		
+			
+			// 우리가 원하는 index인지 확인하기.
+			alert("oldIndex="+ oldIndex + " newIndex="+newIndex);
+	
+			/*
+			- oldIndex에 해당하는 배너를 구한 후 fadeOut효과와 함께 
+			    화면 위쪽으로 사라지게 만듭니다.
+			- newIndex에 해당하는 배너를 구한 후 fadeIn효과와 함께 
+			    아래쪽에서 출력영역으로 나타나게 만듭니다.
+			*/
+			
+			// 다시 newIndex를 현재 인덱스로 변경해줘야 겠죠?
+			this.nCurrentIndex	= newIndex;	
+		}
+		
+	</script>
+</head>
+<body>
+</body>
+</html>
+
+
+

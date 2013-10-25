@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<!--
+		Step #2
+			- 메뉴 아이템 오버 효과 구현
+			step #2-1
+				- 메뉴 아이템에 이벤트 리스너 등록
+		 
+		Step #1
+	       	- 메뉴 구조 잡기.
+	-->
+	
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul.menu{
+			
+			background-color:#cccccc;
+			width:700px;
+			height:60px;
+			position:absolute;
+			left:50px;
+			top:50px;
+			overflow:hidden;
+			padding-left:20px;
+		}
+		
+		ul.menu li{
+			margin-top:15px;
+			background-color:#ffffff;
+			overflow:hidden;
+			height:30px;	
+			float:left;		
+		}
+		
+		ul.menu li div{		
+			position:relative;
+		}
+			
+	</style>
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script  type="text/javascript"  src="../libs/jquery.easing.1.3.js"></script>
+	<script>
+		// 메뉴 아이템들이 담을 변수.
+		var $menuItems;
+			
+		$(document).ready(function(){
+			
+			// 재사용할 메뉴아이템 목록을 변수에 담아놓기.
+		 	$menuItems	= $("ul.menu li");
+			
+			// 메뉴아이템에 마우스 이벤트 추가하기.
+			$menuItems.mouseenter(function(e){
+				alert("메뉴안으로 들어왔군요. "+$(this).index());
+			});
+			$menuItems.mouseleave(function(e){
+				alert("메뉴밖으로 나갔네요. "+$(this).index());
+			});
+		 });
+	</script>
+</head>
+
+<body>
+	<ul class="menu">
+		<li>
+			<div><img src="images/menu_1.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_2.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_3.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_4.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_5.png"></div>
+		</li>
+       </ul>
+</body>
+</html>

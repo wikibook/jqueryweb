@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	
+	<script>
+        $(document).ready(function(){
+            // 서버로 보낼 데이터 생성
+            var param = {data1:"ddandongne", data2:"sample"};					
+	 
+            $.post("data.php",param, parseData,"xml");
+            alert("전송 시작!");
+        })
+		
+		
+        // 6. 데이터 처리
+        // 자바스크립트 DOM을 이용한 데이터 처리
+        function parseData(xmlInfo){
+            alert("서버에서 받은 원본 데이터: "+xmlInfo);
+            //console.log("서버에서 받은 원본 데이터: ",xmlInfo);
+            var data1 = xmlInfo.getElementsByTagName("data1")[0].firstChild.nodeValue;
+            var data2 = xmlInfo.getElementsByTagName("data2")[0].firstChild.nodeValue;
+            alert("파싱한 데이터 : data1="+data1+", data2="+data2);
+        }
+		
+        // jQuery를 이용한 데이터 처리
+        /*
+        function parseData(xmlInfo){
+            alert("서버에서 받은 원본 데이터  : "+ xmlInfo);
+            //console.log("서버에서 받은 원본 데이터: ",xmlInfo);
+            var data1 = xmlInfo.getElementsByTagName("data1").text();
+            var data2 = xmlInfo.getElementsByTagName("data2").text();
+            alert("파싱한 데이터 : data1="+data1+", data2="+data2);
+        }
+        */		
+    </script>
+
+</head>
+
+<body>
+</body>
+</html>

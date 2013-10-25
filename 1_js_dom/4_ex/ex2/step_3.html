@@ -1,0 +1,83 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<!--		
+		Step #3
+			- 배너 하나를 아래에서 출력 영역으로 움직여보기(10분)
+		            
+		Step #2
+			- 배너 하나를 위쪽으로 움직여보기(10분)
+	
+		Step #1
+			- 배너 구조 잡기(1시간)
+	-->
+	<style>
+		
+		#banner_container
+		{
+			position:relative;
+			width:128px;
+			
+			height:128px;
+			border:1px solid #cccccc;
+			top:100px;
+			left:100px;		
+		}
+		
+		#banner_container div
+		{
+			position:absolute;
+			width:128px;
+			height:128px;
+			
+			top:0;
+			top:0;
+			background:#ffffff;
+			opacity:0.5;
+		}
+	</style>
+	
+	<script> 
+		var bannerContainer;
+		var banner1;
+		var nY;
+		window.onload=function(){
+			// bannerContainer 찾기.
+			this.bannerContainer = document.getElementById("banner_container");
+			
+			// banner중 1번째 배너를  구한다.
+			this.banner2 = this.bannerContainer.getElementsByTagName("div")[1];
+			this.banner2.style.top = "128px";		
+			
+			// 아래쪽으로 움직이기.	
+			this.nY = 128;
+			var nTimerID = setInterval(function(){
+				nY -= 2;			// 가상위치를 -2만큼씩 감소시킵니다.
+				if(nY<0)		// 가상위치값이 top=0위치에 도달았다면 동작을 멈춰야겠죠? 
+				{
+					clearInterval(nTimerID);
+					nY = 0;
+				}
+				banner2.style.top = nY+"px";								
+			},100);		
+		}
+	</script>
+
+
+</head>
+
+<body>
+	<div id="banner_container" >
+		<div>
+			<img src="images/img1.jpg">
+		</div>
+		<div>
+			<img src="images/img2.jpg">
+		</div>
+	</div>    
+</body>
+</html>
+
+
+

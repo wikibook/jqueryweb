@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body
+		{
+			font-size: 9pt;
+		}
+		#info{
+			border:1px solid #000000;
+						
+		}
+		#btn_target{
+			width:300px;
+			height:100px;
+		} 
+		
+	</style>
+	<script type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script>
+		$(document).ready(function(){		
+			$("#btn_1").bind("click", on_ClickAdd);
+			$("#btn_2").bind("click", on_ClickRemove);
+			
+		});
+		
+		function on_ClickAdd(e){
+			addInfo("mouseover 이벤트 리스너 등록, 이제부터 mouseover이벤트 리스너가 실행됩니다.");			
+			// 이벤트 추가.
+			$("#btn_target").bind("mouseover",on_MouseOver);
+		}
+		
+		
+		function on_ClickRemove(e){
+			addInfo("mouseover 이벤트 리스너 삭제, 더이상 mouseover 이벤트 리스너가 실행되지 않습니다.");
+			// 이벤트 제거.	
+			$("#btn_target").unbind("mouseover", on_MouseOver);		
+			//$("#btn_1").unbind("mouseover");
+			//$("#btn_1").unbind();
+		}
+		
+		function on_MouseOver(e){
+			addInfo("mouseOver 이벤트 발생.");
+		}
+		
+		function addInfo(str){
+			info.innerHTML += str+"<br>";
+		}
+	</script>
+</head>
+
+<body>
+	<button  id="btn_1">이벤트발생</button>
+	<button id="btn_2">이벤트제거</button>
+    <div>
+		<button id="btn_target">이곳에 마우스를 올려보세요.</button>
+	</div>
+	<div id="info">이곳에 이벤트 이벤트 정보가 출력됩니다.<br></div> 
+</body>
+</head>
+</html>

@@ -1,0 +1,188 @@
+body
+{
+	background-color:#ffffff;
+	font-size:9pt;
+	color:#999999;
+}
+
+button 
+{
+	font-size:9pt;
+	color:#666666;
+}
+
+
+/* gallery 매인 */
+div.image_gallery
+{
+	width:600px;
+	background-color:#ffffff;
+	padding:20px;
+}
+
+
+
+/* 로딩 이미지와 관련된 요소들*/
+div.image_gallery div.image_container
+{
+	width:100%;
+	height:400px;
+	position:relative;
+
+	
+	background-color:#eeeeee;
+}
+
+/* 로딩 이미지가 출력될 영역 */
+div.image_gallery div.image_container #image_canvas
+{
+	position:absolute;
+	background-color:#cccccc;
+	width:100%;
+	height:100%;
+}
+
+div.image_gallery div.image_container #image_canvas img
+{
+	position:absolute;	
+	
+}
+
+
+
+
+
+/* 이미지 메뉴의 이전 ,다음 이미지 버튼 */ 
+div.image_gallery div.image_container  #image_menu
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	
+	visibility:visible;
+}
+
+div.image_gallery div.image_container  #image_menu #prev_image
+{
+	position:absolute;
+	left:0;
+	top:50%;
+}
+
+div.image_gallery div.image_container  #image_menu #next_image
+{
+	position:absolute;
+	right:0;
+	top:50%;
+}
+
+
+
+/* 이미지가 로딩될때 나타나게되는 로딩 패널. */
+div.image_gallery div.image_container #loading_panel
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	
+	line-height:700px;
+	text-align:center;
+	vertical-align:middle;	
+}
+
+
+
+
+
+/*선택된 이미지 정보 출력 패널 */
+div.image_gallery #image_comment
+{
+		
+	height:80px;
+	margin-top:5px;
+	padding:5px;
+	
+	background-color:#eeeeee;
+	font-size:9pt;	
+	
+}
+
+
+
+/* 이미지 썸네일 및 페이지 메뉴가 위치하는 컨테이너*/
+div.image_gallery div.page_container
+{
+	width:100%;
+	margin-top:5px;
+}
+
+
+/* 이미지 썸네일이 담길 영역 */
+div.image_gallery div.page_container .thumb_container
+{
+	position:relative;
+	height:66px;	
+	padding-left:8px;
+	overflow:hidden;
+	
+	background-color:#eeeeee;
+}
+
+
+div.image_gallery div.page_container .thumb_container #thumb_list
+{
+	position:absolute;
+	top:0;
+}
+
+
+
+/* 
+ 하나의 thumb nail image 는 64*50
+ * */
+div.image_gallery div.page_container .thumb_container #thumb_list img
+
+{
+	width:64px;
+	height:50px;
+	float:left;
+	margin-top:8px;
+	margin-bottom:8px;
+	margin-right:10px;
+	
+}
+
+
+/* 썸네일 커서 */
+div.image_gallery div.page_container .thumb_container #thumb_list #thumb_cursor
+{
+	position:absolute;
+	top:0;
+	
+	width:60px;
+	height:46px;
+	margin-top:6px;
+	margin-bottom:8px;
+	margin-right:10px;
+	border:4px  solid  #ff0000;
+}
+
+
+
+/* 페이지 메뉴 */
+div.image_gallery div.page_container .page_menu
+{
+	text-align:center;
+	line-height:40px;
+	vertical-align:middle;
+}
+
+
+
+
+
+
+
+
+
+

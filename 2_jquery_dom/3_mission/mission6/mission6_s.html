@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;	
+		}
+			
+		#panel{
+			width:600px;
+			height:400px;
+			border:1px solid #999;
+			position:relative;
+		}
+		
+		#img1{
+			position:absolute;
+			left:236px;
+			top:136px;		
+		}
+		
+		#nav{
+			text-align:center;
+			width:600px;
+		}
+		
+	</style>
+	
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script>
+		var nX = 0;
+		var nY = 0;
+		var nStepSize = 4;
+		var nStepX = nStepSize;
+		var nStepY = nStepSize;
+	// 1. 움직일 이미지 엘리먼트를 담을 변수 선언.
+		var $img1;	
+		var nTimerID = 0;
+		var nEndX = 0;
+		var nEndY = 0;
+	
+		window.onload=function(){
+			// 이벤트 초기화
+			this.initEventListener();
+			// 요소 초기화.
+			this.init();
+		}
+		
+	// 2. 이벤트 설정하기.
+		function initEventListener(){		
+			$("#btn_start").bind("click",function(){
+				start();
+			});
+			
+			$("#btn_stop").bind("click",function(){
+				stopMove();
+			});		
+		}
+		
+		
+		function init(){
+			this.nTimerID = 0;		
+	
+	//3. 움직일 이미지 엘리먼트  찾기.
+			this.$img1 = $("#img1");	
+			
+	//4. 오른쪽과 하단 충돌지점을 구합니다.
+			var $panel = $("#panel");
+			this.nEndX = $panel.outerWidth()-this.$img1.width();
+			this.nEndY = $panel.outerHeight()-this.$img1.height();
+			
+		}
+		
+		// 타이머 시작.
+		function start(){
+			if(this.nTimerID==0)
+				this.nTimerID = setInterval(this.startMove,20);
+		}
+		
+		// 이미지 움직이기.
+		function startMove(){
+			
+			this.nX += this.nStepX;
+			this.nY += this.nStepY;
+			
+			// 우측영역으로 벗어났는지 여부판단.
+			if(this.nX>this.nEndX)
+				this.nStepX = -this.nStepSize;
+				
+			// 우측영역으로 벗어났는지 여부판단.
+			if(this.nX<0)
+				this.nStepX = this.nStepSize;
+	
+			// 아래쪽으로 벗어났는지 여부판단.
+			if(this.nY>this.nEndY)		
+				this.nStepY = -this.nStepSize;
+	
+			// 위쪽으로 벗었는지 여부 판단.
+			if(this.nY<0)
+				this.nStepY = this.nStepSize;
+	
+			
+	//5.스타일 설정하기.
+			this.$img1.css({left:this.nX, top:this.nY});		
+		}
+		
+		// 타이머 멈춤.
+		function stopMove(){
+			if(this.nTimerID!=0){
+				clearInterval(this.nTimerID);
+				this.nTimerID = 0;
+			}
+		}
+	</script>
+</head>
+
+<body>	
+	<div> 
+		<h4>#img1을 #panel영역내에서 움직이도록 하기. 외각에 부딛치는 경우 팅겨져야 됨.</h4>
+		<div id="panel"> 	
+			<div id="img1">
+				<img src="fish.png">
+			</div>
+		</div>
+		<div id="nav">
+			<button id="btn_start">시작</button>
+			<button id="btn_stop">멈춤</button>
+		</div>
+	</div>
+</body>
+</html>

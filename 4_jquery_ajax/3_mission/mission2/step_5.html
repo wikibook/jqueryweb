@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		.image_panel{
+			border:1px solid eeeeee;
+			text-align:center;
+			margin:5px;
+		}
+		.image_panel .title{
+			font-size:9pt;
+			color:#ff0000;
+			
+		}
+		
+	</style>
+	</style>
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"></script>
+	<script>
+		var xmlHttp;
+		window.onload=function(){
+			$("#btn_load").click(function(){
+				startLoadFile();	
+			});
+		}
+		
+		function startLoadFile(){
+			$.getJSON("images.json",null,this.createImages);
+			
+		}
+		
+		
+		//7.JSON 포멧 데이터 처리.
+		function createImages(objImageInfo){
+			var images = objImageInfo.rows;			
+			var strDOM = "";
+			for(var i=0;i<images.length;i++){
+				//2. N번째 이미지 정보를 구합니다.
+				var image = images[i];
+				
+				//3. N번째 이미지 패널을 생성합니다.			
+				strDOM +='<div class="image_panel">'
+				strDOM +='    <img src="'+image.url+'">';
+				strDOM +='    <p class="title">'+image.title+'</p>';
+				strDOM +='</div>';						
+			}
+			alert(strDOM);
+			//4. 이미지 컨테이너에 3번째에서 생성한 이미지 패널들을 추가합니다.
+			var $imageContainer 	= $("#image_container");
+			$imageContainer.append(strDOM);
+		}		
+	</script>
+</head>
+
+<body>
+	<div>
+		<button id="btn_load">이미지 읽어들이기</button>
+	</div>
+	<div id="image_container">
+		<!-- 1. 이곳에 이미지를 넣어주세요-->
+	</div>
+	
+	<!-- 2. 이 내용은 이미지 패널 템플릿입니다. -->
+	<div style="display:none;" id="image_panel_template">
+		<div class="image_panel">
+			<img >
+			<p class="title"></p>
+		</div>
+	</div>
+</body>
+</html>

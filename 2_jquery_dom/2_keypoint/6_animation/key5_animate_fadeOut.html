@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		#test_1{
+			border:1px #000000 solid;
+			width:400px;
+			height:200px;
+			
+			text-align:center;
+			
+			position:relative;			
+		}
+		
+		#test_1 img{
+			position:absolute;
+			left:150px;
+			top:50px;
+		}
+		
+	</style>
+	
+	
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script  type="text/javascript"  src="../libs/jquery.easing.1.3.js"></script>
+	<script>
+		window.onload=function(){
+			//  대상 찾기.
+			var $img1 = $("#img_1");
+			$("#btn_Start").bind("click", function(){
+				$img1.css("opacity", 1);
+				$img1.animate({opacity:0},1000,"easeInCubic");	
+			});
+		}	
+	</script>
+
+</head>
+
+<body>
+	<div>
+		<button id="btn_Start">시작</button>
+	</div>
+	<div id="test_1"> 
+		<img id="img_1" src="ch2.png">
+	</div>       
+    
+</body>
+</html>

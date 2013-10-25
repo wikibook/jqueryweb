@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<style>
+		body
+		{
+			font-size: 9pt;
+		}
+		#info{
+			width:400px;
+			
+			border:1px solid #000000;
+			
+		}
+	</style>
+	<script type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script>		
+		$(document).ready(function(){
+			var $btn_1 = $("#btn_1");		
+			$btn_1.click(on_Click);
+			$btn_1.mouseover(function(){
+				info.innerHTML+="마우스가 over되었습니다.<br>"
+			});
+			
+			var $btn_2 = $("#btn_2");				
+			$btn_2.bind("click", on_Click);				
+			$btn_2.bind("mouseover",function(e){
+				info.innerHTML+="마우스가 over되었습니다.<br>"			
+			});	
+		});
+		function on_Click(e){
+			info.innerHTML+="버튼이 click되었습니다.<br>"
+		}
+		
+		
+	</script>
+</head>
+	<body>
+		<button id="btn_1">DOM Level 0방식 테스트 - 마우스를 올려보가나 클릭해 보세요.</button><br>
+		<button id="btn_2">DOM Level 2방식 테스트 - 마우스를 올려보가나 클릭해 보세요.</button>
+		<div id="info">이곳에 이벤트 이벤트 정보가 출력됩니다.<br></div>
+	</body>
+</html>
+

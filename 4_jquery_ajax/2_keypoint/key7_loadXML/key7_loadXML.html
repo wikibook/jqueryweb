@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script>
+        $(document).ready(function(){
+        $.post("menu.xml",null, parseData);
+            alert("전송 시작!");
+        })
+		
+        //8. XML 포맷의 데이터 처리(자바스크립트 DOM를 이용한 처리)
+        function parseData(xmlInfo){
+            alert("서버에서 받은 원본 데이터: "+xmlInfo);
+           //console.log("서버에서 받은 원본 데이터: ",xmlInfo);
+            var menuItems = xmlInfo.getElementsByTagName("menuitem");
+            alert("메뉴 아이템 개수는? "+menuItems.length);	
+        }
+		
+    </script>
+
+</head>
+
+<body>
+</body>
+</html>

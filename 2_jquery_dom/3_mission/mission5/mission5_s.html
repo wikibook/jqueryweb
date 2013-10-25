@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;		
+		}
+		
+		#panel{
+			width:600px;
+			height:300px;
+			border:1px solid #999;
+			position:relative;
+		}
+		
+		
+		#image_view{
+			left:200px;
+			top:80px;
+			width:128px;
+			height:128px;
+			border:1px solid #999;
+			position:absolute;
+			overflow:hidden;
+		}
+		
+		#image_view img{
+			display:block;
+		}
+		
+		#nav{
+			text-align:right;
+			width:600px;
+		}
+	</style>
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	</script>
+	
+	<script>
+		var $objImageView;
+		// 전체 이미지 스크롤 높이값을 담을 변수.
+		var nImageScrollHeight;
+		// 현재 스크롤 위치값.
+		var nCurrentY;
+	
+		var nTimerID;
+		// 한번에 이동하게 될 이동값.
+		var nStep;
+		
+		window.onload=function(){
+			// 요소 초기화.
+			this.init();
+			// 이벤트초기화.
+			this.initEventListener();
+		}
+		
+		// 타이머 실행.
+		function start(){		
+			if(this.nTimerID==0)
+				this.nTimerID = setInterval(this.startMove,20);
+			
+		}
+		
+		function initEventListener(){
+			// 스크롤 시작버튼 이벤트 리스너 등록.
+			$("#btn_start").bind("click",function(){
+				start();
+			});
+			
+			// 스크롤 멈춤버튼 이벤트 리스너 등록.
+			$("#btn_stop").bind("click",function(){
+				stopMove();
+			});
+			
+		}
+		
+		// 타이머 실행.
+		function init(){
+			// 계속해서 사용할 이미지뷰 엘리먼트를 변수에 담아둡니다.
+			this.$objImageView = $("#image_view");
+	
+	//1. 전체 이미지 스크롤 높이값 구하기. 
+			this.nImageScrollHeight	= this.$objImageView[0].scrollHeight;
+			this.nImageScrollHeight	-=this.$objImageView.height();
+			
+			this.nStep = 2;
+			this.nTimerID = 0;
+			this.nCurrentY = 0;
+		}
+		
+		
+		
+		// 이미지를 상하로 스크롤 시키는 함수.
+		function startMove(){
+			this.nCurrentY += this.nStep;
+			
+			// 현재 스크롤 위치가 마지막 위치인지 판단하기.
+			if(this.nCurrentY>this.nImageScrollHeight)
+			{
+				this.nCurrentY = this.nImageScrollHeight;
+				this.nStep = -2;
+			}
+			
+			// 현재 스크롤 위치가 시작 위치인지 판단하기.
+			if(this.nCurrentY<0)
+			{
+				this.nCurrentY = 0;
+				this.nStep = 2;
+			}
+			
+			
+	//2. scrollTop프로퍼티를 이용한 이미지 스크롤 시키기.	
+			this.$objImageView.scrollTop(this.nCurrentY);
+			
+		}
+		
+		// 타이머 멈추기.
+		function stopMove(){
+			if(this.nTimerID!=0){
+				this.clearInterval(this.nTimerID);
+				this.nTimerID = 0;
+			}
+		}	
+	</script>
+</head>
+
+<body>
+	
+<div> 
+	<h4>#imageView안에는 9개의 이미지가 있답니다. 이미지가 보일 수 있도록 계속해서 상하로 스크롤 시켜주세요.</h4>
+	<div id="panel">
+		<div id="image_view">	
+			<img src="images/img1.jpg">
+			<img src="images/img2.jpg">
+			<img src="images/img3.jpg">
+			<img src="images/img4.jpg">
+			<img src="images/img5.jpg">
+			<img src="images/img6.jpg">
+			<img src="images/img7.jpg">
+			<img src="images/img8.jpg">
+			<img src="images/img9.jpg">
+		</div>
+	</div>
+	<div id="nav">
+		<button id="btn_start">시작</button>
+		<button id="btn_stop">멈춤</button>
+	</div>
+</div>
+       
+</body>
+</html>

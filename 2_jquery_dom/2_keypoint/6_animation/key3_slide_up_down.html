@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		#test_1
+		{
+			border:1px #000000 solid;
+			width:200px;
+			height:120px;
+			
+			text-align:center;
+					
+		}
+		
+		
+	</style>
+	
+	
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script  type="text/javascript"  src="../libs/jquery.easing.1.3.js"></script>
+	<script>
+		$(document).ready(function(){
+			//  움직일 대상 찾기.
+			var $test1 = $("#test_1");
+		
+			$("#btn_show").bind("click", function(){
+				$test1.slideUp(1000,"easeInCubic",function(){
+					alert("slideUp 완료");
+				});
+			});
+			
+			$("#btn_hide").bind("click", function(){
+				$test1.slideDown(200,"easeOutCubic",function(){ 
+					alert("slideDown 완료");
+				});
+			});
+		});		
+	</script>
+</head>
+
+<body>
+	<div id="test_1"> 
+		<img id="img_1" src="ch2.png">
+	</div>       
+	
+	<div>
+		<button id="btn_show">slideUp</button>
+		<button id="btn_hide">slideDown</button>	
+	</div>
+</body>
+</html>

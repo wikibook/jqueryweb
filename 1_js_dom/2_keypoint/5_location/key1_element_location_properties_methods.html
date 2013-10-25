@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>element location properties</title>
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		
+		#main{
+			border:1px dotted #ff0000;
+			width:500px;
+			margin:50px;
+		}
+		
+		#container{
+			width:400px;
+			height:400px;
+			position:absolute;
+			left:200px;
+			top:100px;
+			
+			border:1px dotted #ff0000;
+		}
+		#rect{
+			padding:10px;
+			width:100px;
+			height:100px;
+			border:10px solid #ff0000;
+			background-color:#FFFFFF;
+			position:absolute;
+			
+			left:100px;
+			top:100px;
+			cursor:move;
+			resize:both;
+			-moz-resize:both;
+			overflow:auto;
+			min-width:100px;
+			min-height:100px;
+			max-width:300px;
+			max-height:300px;
+			-webkit-user-select:none;
+		}
+		
+		#info{		
+			border:1px solid #ff0000;
+			position:fixed;
+			background-color:#FFFFFF;		
+		}
+		
+	</style>
+       
+	<script>
+		var rect;
+		var container;
+		var info;
+		var nSW=5;
+		var nStartX=0;
+		var nStartY=0;
+		window.onload=function(){
+			rect = document.getElementById("rect");
+			info = document.getElementById("info");
+			container = document.getElementById("container");
+
+			showInfo();
+
+			rect.addEventListener("mousedown",on_DownRect,false);
+			rect.addEventListener("dragend",on_Size,false);
+		}
+
+		function showInfo(){
+			var strInfo	="";
+			strInfo		="offsetLeft = "+rect.offsetLeft+"<br>";
+			strInfo		+="offsetTop = "+rect.offsetTop+"<br>";
+			strInfo		+="offsetWidth = "+rect.offsetWidth+"<br>";
+			strInfo		+="offsetHeight = "+rect.offsetHeight+"<br>";
+			strInfo		+="clientLeft = "+rect.clientLeft+"<br>";
+			strInfo		+="clientTop = "+rect.clientTop+"<br>";
+			strInfo		+="clientWidth = "+rect.clientWidth+"<br>";
+			strInfo		+="clientHeight = "+rect.clientHeight+"<br>";
+			strInfo		+="scrollLeft = "+rect.scrollLeft+"<br>";
+			strInfo		+="scrollTop = "+rect.scrollTop+"<br>";
+			strInfo		+="scrollWidth = "+rect.scrollWidth+"<br>";
+			strInfo		+="scrollHeight = "+rect.scrollHeight+"<br>";
+			strInfo		+="clientRect.width = "+rect.getBoundingClientRect().width+"<br>";
+			strInfo		+="clientRect.height = "+rect.getBoundingClientRect().height+"<br>";
+			strInfo		+="clientRect.top = "+rect.getBoundingClientRect().top+"<br>";
+			strInfo		+="clientRect.right = "+rect.getBoundingClientRect().right+"<br>";
+			strInfo		+="clientRect.bottom = "+rect.getBoundingClientRect().bottom+"<br>";
+			strInfo		+="clientRect.left = "+rect.getBoundingClientRect().left+"<br>";	
+			info.innerHTML=strInfo;
+		}
+
+
+		function on_Size(){
+			showInfo();
+		}
+
+		
+		function on_DownRect(e){
+			nStartX	= e.offsetX;
+			nStartY	= e.offsetY;
+
+			window.addEventListener("mousemove",on_MoveRect,false);
+			window.addEventListener("mouseup",on_UpRect,false);
+		}
+
+		function on_UpRect(e){
+			window.removeEventListener("mousemove",on_MoveRect,false);
+			window.removeEventListener("mouseup",on_UpRect,false);
+
+		}
+
+		function on_MoveRect(e){
+			rect.style.left = (e.clientX-nStartX-container.offsetLeft)+"px";
+			rect.style.top = (e.clientY-nStartY-container.offsetTop)+"px";
+			showInfo();	
+		}
+
+	</script>
+</head>
+
+<body>
+	<div id="container">
+		<div id="rect"> 
+			1<br>
+			2<br>    
+			3<br>    
+			4<br>    
+			5<br>    
+			6<br>    
+			7<br>    
+			8<br>    
+			9<br>    
+			10<br>    
+			11<br>    
+			12<br>                  
+		</div>
+	</div>
+	<div id="info">        
+	</div>
+</body>
+</html>

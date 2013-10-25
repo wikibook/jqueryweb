@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<!--
+		Step #1
+			- 페이지 레이아웃 잡기
+	-->
+	<style>
+		body{
+			font-size:9pt;
+		}
+		
+		#page_container{
+			border: 1px solid #000000;
+			margin-top:30px;
+			padding:10px;
+		}
+	</style>
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"></script>
+	<script>
+		$(document).ready(function(){ 			
+		});
+	</script>
+</head>
+
+<body>
+	<div >
+		<button data="page1.html" >page1</button>
+		<button data="page2.html" >page2</button> 
+	</div>
+	<div>
+		동적으로 page1.html, page2.html파일을 읽어서 #panel_panel의 자식으로 추가해 주세요. 단 오직 한번씩만 추가되어야 합니다.
+	</div>
+    <div id="page_container">
+  		이곳에 넣어주세요.
+    </div>
+</body>
+</html>

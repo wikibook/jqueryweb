@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+
+	<!--
+		Step #2
+			- 메뉴 아이템 오버 효과 구현
+			Step #2-5
+				- 리팩토링
+					- 계속해서 사용할 메뉴의 정보들 재사용하기 쉽도록 data에 넣어둡니다.
+					  initMenuData();
+					  
+					- 메뉴초기화에 관련된 내용도 따로 띠어내도록 하죠
+					 initEventListener();
+					 
+			Step #2-4
+				- 중복 적용된 오버 스타일 처리
+				
+			Step #2-3
+				- Step #2-2문제 해결
+					- animation.stop()추가.
+					
+			Step #2-2
+				- 오버 효과 구현.
+				- 문제점 
+					- 메뉴 아이템에서 마우스를 좌우로 빠르게 움직이게 되는 경우, 마우스의 움직임을 멈춘 상태에서도
+					 잔상처럼 계속해서 움직이는 증상이 나타남.
+					 
+			step #2-1
+				- 메뉴 아이템에 이벤트 리스너 등록
+		 
+		Step #1
+	       	- 메뉴 구조 잡기.
+	-->			
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul.menu{
+			background-color:#cccccc;
+			width:700px;
+			height:60px;
+			position:absolute;
+			left:50px;
+			top:50px;
+			overflow:hidden;
+			padding-left:20px;
+		}
+		
+		ul.menu li{
+			margin-top:15px;
+			background-color:#ffffff;
+			overflow:hidden;
+			height:30px;	
+			float:left;		
+		}
+		
+		ul.menu li div{		
+			position:relative;
+		}
+			
+	</style>
+	
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script  type="text/javascript"  src="../libs/jquery.easing.1.3.js"></script>
+	
+	<script>
+		// 메뉴 아이템들이 담을 변수.
+		var $menuItems;
+		// 오버된 메뉴 아이템을 담을 변수.
+		var $overMenuItem;
+		
+		$(document).ready(function(){
+			initMenuData();
+			initEventListener();
+		 });
+		 	 
+		 // 메뉴와 관련된 데이터를 초기화 합니다.
+		 function initMenuData(){
+		 	// 재사용할 메뉴 아이템 목록을 변수에 담아놓기.
+		 	this.$menuItems	= $("ul.menu li");
+			
+			// 계속해서 사용할 항목들을 재사용하기 쉽도록 data에 넣어둡니다.
+			this.$menuItems.each(function(index,data){
+			 	$(this).data("index", index);
+				$(this).data("menuItem",$(this).find("div"));	
+			 });
+		 }
+		 
+		 // 메뉴와 관련된 이벤트 리스너들을 등록합니다.
+		 function initEventListener(){
+		 	// 메뉴 아이템에 마우스 이벤트 추가하기.
+			this.$menuItems.mouseenter(function(e){
+				setOverMenuItem($(this));
+			});			
+		 }
+		 
+		 // 오버 효과 실행.
+		 function setOverMenuItem($newMenuItem){
+		 	// 만약, 현재 오버된 메뉴가 새롭게 오버된 메뉴라면 나머지 내용을 실행이 되지 않도록 함.
+			// 주의 : jQuery 확장요소들은 실행시에 새롭게 생성되기 때문에, 
+			//      $newMenuItem == $overMenuItem를 비교하면 안됨)
+			 if(this.$overMenuItem!=null && 
+			       $newMenuItem.data("index")==this.$overMenuItem.data("index"))
+				return;
+			
+	
+			// 기존 오버 된 메뉴 아이템이 있다면 아웃 스타일로 만든다.
+			if(this.$overMenuItem){
+				var $overItem = this.$overMenuItem.data("menuItem")
+				$overItem.stop();
+				$overItem.animate({
+					top: 0
+				}, 
+				200,"easeOutQuint");
+			}
+		
+			// 새롭게  오버 된 메뉴 아이템을 오버 스타일로 만든다.
+			var $newItem = $newMenuItem.data("menuItem");
+			$newItem.stop();
+			$newItem.animate({
+				top:-30
+			}, 
+			200,"easeOutQuint");
+						
+			this.$overMenuItem = $newMenuItem;
+		 }	 
+	</script>
+</head>
+<body>
+	<ul class="menu">
+		<li>
+			<div><img src="images/menu_1.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_2.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_3.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_4.png"></div>
+		</li>
+		<li>
+			<div><img src="images/menu_5.png"></div>
+		</li>
+       </ul>
+</body>
+</html>

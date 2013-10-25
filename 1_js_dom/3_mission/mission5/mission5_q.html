@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;	
+		}
+		
+		#panel{
+			width:600px;
+			height:300px;
+			border:1px solid #999;
+			position:relative;
+		}
+	
+		#panel #image_view{
+			left:236px;
+			top:80px;
+			width:128px;
+			height:128px;
+			border:1px solid #999;
+			position:relative;
+			overflow:hidden;
+		}
+		
+		#nav{
+			text-align:center;
+			width:600px;
+		}
+	</style>
+	<script>	
+		window.onload=function(){
+			this.initEventListener();
+		}
+		
+		function initEventListener(){
+			document.getElementById("btn_start").addEventListener("click",function(){
+				alert("시작");
+			},false);
+			
+			document.getElementById("btn_stop").addEventListener("click",function(){
+				alert("멈춤");
+			},false);		
+		}		
+	</script>
+</head>
+
+<body>	
+	<div> 
+		<h4>#image_view안에는 9개의 이미지가 있습니다. 이미지가 보일 수 있도록 계속해서 상하로 스크롤 해주세요.</h4>
+		<div id="panel">
+			<div id="image_view">	
+				<img src="images/img1.jpg">
+				<img src="images/img2.jpg">
+				<img src="images/img3.jpg">
+				<img src="images/img4.jpg">
+				<img src="images/img5.jpg">
+				<img src="images/img6.jpg">
+				<img src="images/img7.jpg">
+				<img src="images/img8.jpg">
+				<img src="images/img9.jpg">
+			</div>
+		</div>
+		<div id="nav">
+			<button id="btn_start">시작</button>
+			<button id="btn_stop">멈춤</button>
+		</div>
+	</div>     
+</body>
+</html>

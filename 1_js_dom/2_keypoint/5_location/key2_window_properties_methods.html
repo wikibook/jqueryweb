@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>window location properties</title>
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		
+		#main{
+			border:1px dotted #ff0000;
+			width:500px;
+			margin:50px;
+		}
+		#rect{			
+			border:10px solid #ff0000;			
+			position:fixed;
+			left:120px;
+			top:100px;
+		}
+		
+	</style>
+       
+       <script>
+		var rect;
+		var main;
+		var nSW = 5;
+		window.onload=function(){
+			rect = document.getElementById("rect");
+			main = document.getElementById("main");
+			
+			showInfo();			
+			createData();
+			startAutoScroll();
+		}
+		
+		function createData(){
+			var strInfo="";
+			for(var i=0;i<100;i++){
+				strInfo += i+"<br>";
+			}
+			
+			main.innerHTML=strInfo;
+		}
+		
+		function showInfo(){
+			var strInfo="";
+			strInfo		="window.innerWidth = "+window.innerWidth+"<br>";
+			strInfo		+="window.innerHeigh = "+window.innerHeight+"<br>";
+			strInfo		+="window.outerWidth = "+window.outerWidth+"<br>";
+			strInfo		+="window.outerHeight = "+window.outerHeight+"<br>";
+			strInfo		+="window.pageXOffset = "+window.pageXOffset+"<br>";
+			strInfo		+="window.pageYOffset = "+window.pageYOffset+"<br>";
+			strInfo		+="window.screenLeft = "+window.screenLeft+"<br>";
+			strInfo		+="window.screenTop = "+window.screenTop+"<br>";
+			strInfo		+="window.screenX = "+window.screenX+"<br>";
+			strInfo		+="window.screenY = "+window.screenY+"<br>";
+			
+			rect.innerHTML = strInfo;
+		}
+		
+		
+		function startAutoScroll(){
+			setInterval(function(){
+				autoScroll();
+				showInfo();
+			}, 20);	
+		}
+
+
+		function autoScroll(){
+			var nY = window.pageYOffset;
+			var nMaxTop	= window.document.documentElement.scrollHeight-window.innerHeight;
+			
+			if(nY+nSW>nMaxTop){
+				nSW = -5;
+			}
+			
+			if(nY+nSW<0){
+				nSW = 5;
+			}
+			
+			nY += nSW;
+			window.scrollTo(0,nY);			
+		}
+	</script>
+</head>
+
+<body>
+	<div id="main">             
+	</div>
+	<div id="rect">                   
+	</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;
+			font-family:"굴림";		
+		}
+		div, p{
+			border:1px #eeeeee solid;
+			margin:10px;
+		}
+		
+		
+	</style>
+	
+	<script type="text/javascript"  src="../libs/jquery-1.7.1.min.js"> </script>
+	<script>
+		/*
+		window.onload=function(){
+			//1. 텍스트 노드를 추가할 부모노드를 먼저 찾습니다.
+			var content	 = document.getElementById("content");			
+			//2. 텍스트 노드를 생성합니다.
+			var newTextNode = document.createTextNode("추가내용1");
+			
+			//3. 일반 노드처럼 appendChild를 이용해서 생성한 텍스트 노드를 추가 시켜 줍니다.
+			content.appendChild(newTextNode);
+			content.style.border = "4px solid #ff0000";
+		}
+		*/
+		$(document).ready(function(){
+			$("#content").append("추가내용1");			
+		});
+	</script>
+</head>
+	
+<body>
+	<div id="sample_page" class="page" >
+		샘플 페이지(div, id=sample_page, class=page)
+		<div id="header">				
+			헤더 영역(div, id=header)
+		</div>
+		<div id="content" class="sample_content">
+			컨텐츠 영역(div, id=content, class=sample_content)
+			<div> 
+				JavaScript란?(div)
+				<p id="data_1">1. 자바스크립트 Core(p, id=data_1)</p>
+				<p id="data_2">2. 자바스크립트  BOM(p, id=data_2)</p>
+				<p id="data_3">3. 자바스크립트 DOM(p, id=data_3)</p>
+				을 배운다는것
+			</div>
+			<div class="content_data">
+				자바스크립트에서 배울 내용(div, class=content_data)
+				<p>1. 자바스크립트 DOM(p)</p>
+				<p>2. 자바스크립트 Ajax(p)</p>
+			</div>				
+			<div class="content_data">
+				jQuery에서 배울 내용(div, class=content_data)
+				<p>1. jQuery DOM(p)</p>
+				<p>2. jQuery Ajax(p)</p>
+			</div>				
+		</div>
+		<div id="footer">				
+			푸터 영역(div, id=footer)
+		</div>		
+	</div>	
+</body>
+</html>

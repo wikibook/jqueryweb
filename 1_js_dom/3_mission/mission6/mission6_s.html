@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;
+		}
+		
+		#panel{
+			width:600px;
+			height:400px;
+			border:1px solid #999;
+			position:relative;
+		}
+		
+		#img_1{
+			position:absolute;
+			left:236px;
+			top:136px;			
+		}
+		
+		#nav{
+			text-align:center;
+			width:600px;
+		}
+	</style>
+	
+	<script>
+		var nX = 0;
+		var nY = 0;
+		var nStepSize = 4;
+		var nStepX = nStepSize;
+		var nStepY = nStepSize;
+		// 움직임을 줄 대상인 #img_1을 저장할 변수.
+		var img1;	
+		var nTimerID = 0;
+		var nEndX = 0;
+		var nEndY = 0;
+	
+		window.onload=function(){	
+			// 요소 초기화.	
+			this.init();
+			// 이벤트 초기화
+			this.initEventListener();
+		}
+		
+		// 요소 초기화.	
+		function init(){
+			this.nTimerID = 0;
+		
+			var panel = document.getElementById("panel");
+			this.img1 = document.getElementById("img_1");		
+			
+			// 이미지가 움직일 최종 X,Y값을 구한다.	
+			this.nEndX = panel.offsetWidth-img1.offsetWidth;
+			this.nEndY = panel.offsetHeight-img1.offsetHeight;
+			
+		}
+		
+		// 이벤트 초기화
+		function initEventListener(){
+			document.getElementById("btn_start").addEventListener("click",function(){
+				start();
+			},false);
+			
+			document.getElementById("btn_stop").addEventListener("click",function(){
+				stopMove();
+			},false);
+			
+		}
+		
+		
+		// 타이머 시작.
+		function start(){
+			if(this.nTimerID==0)
+				this.nTimerID = setInterval(this.startMove,20);
+			
+		}
+	
+		// 이미지 움직이기.
+		function startMove(){
+		
+			this.nX += this.nStepX;
+			this.nY += this.nStepY;
+			
+			// 오른쪽 벽과 부딫쳤는지 체크.
+			if(this.nX>this.nEndX)
+				this.nStepX = -this.nStepSize;		
+			//왼쪽 벽과 부딫쳤는지 체크.	
+			if(this.nX<0)
+				this.nStepX	= this.nStepSize;
+			
+			// 아래벽과 부딫쳤는지 체크.	
+			if(this.nY>this.nEndY)
+				this.nStepY = -this.nStepSize;
+			//위쪽벽과 부딫쳤는지 체크.
+			if(this.nY<0)
+				this.nStepY = this.nStepSize;		
+			
+			// 최종 이동값을 left,top에 대입.
+			img1.style.left = this.nX+"px";
+			img1.style.top = this.nY+"px";
+		}
+		
+		// 타이머 멈춤.
+		function stopMove(){
+			if(this.nTimerID!=0){
+				clearInterval(this.nTimerID);
+				this.nTimerID = 0;
+			}
+		}
+	</script>
+</head>
+
+<body>	
+	<div> 
+		<h4>#img1을 #panel영역내에서 움직이도록 하기. 외각에 부딛치는 경우 팅겨져야 됨.</h4>
+		<div id="panel"> 	
+			<div id="img_1">
+				<img src="fish.png">
+			</div>
+		</div>
+		<div id="nav">
+			<button id="btn_start">시작</button>
+			<button id="btn_stop">멈춤</button>
+		</div>
+	</div>       
+</body>
+</html>

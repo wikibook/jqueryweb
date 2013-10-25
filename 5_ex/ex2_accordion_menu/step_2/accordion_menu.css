@@ -1,0 +1,26 @@
+
+.accordion_menu{
+	position:absolute;
+	left:50px;
+	top:50px;
+	
+	width:300px;
+	padding:20px 0;
+	
+	background-color:#eeeeee;
+}
+
+.accordion_menu .menu_item{
+	position:relative;
+	height:20px;
+	
+	overflow:hidden;
+}
+
+.accordion_menu .menu_item  .menu_item_content{
+	position:absolute;
+}
+
+.accordion_menu .menu_item  .menu_item_content img{
+	display:block;
+}

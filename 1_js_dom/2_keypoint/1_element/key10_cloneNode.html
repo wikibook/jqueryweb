@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;
+			font-family:"굴림";		
+		}
+		div, p{
+			border:1px #eeeeee solid;
+			margin:10px;
+		}
+		
+		
+	</style>
+	
+	
+	<script>
+		window.onload=function(){
+			var page = document.getElementById("sample_page");
+			
+			// 첫번째 영역에 추가하기.
+			//1-1. 기준이 되는 위치찾기.
+			var firstChild = page.firstChild;
+			//1-2.<p> Element를 동적으로 생성.
+			var p1 = document.createElement("p");		
+			//1-3. textNode 생성.
+			var text1 = document.createTextNode("추가내용1");
+			//1-4. p1의 자식노드로 text1을 추가.
+			p1.appendChild(text1);		
+			p1.style.border	= "4px solid #ff0000";
+			//1-5. p1을 #sample_page 첫번째 자식 노드 앞에 추가 
+			page.insertBefore(p1, firstChild);	
+			
+			
+			// 세번째 영역에 추가하기.
+			//3-1. p1노드를 그대로 복사.
+			var p2 = p1.cloneNode(true);
+			//3-2. textNode를 수정.
+			p2.firstChild.nodeValue="추가내용2";		
+			//3-3. p2을 page마지막 위치에 추가.
+			page.appendChild(p2);	
+			
+		}
+	</script>
+</head>
+	
+<body>
+	<div id="sample_page" class="page" >
+		샘플 페이지(div, id=sample_page, class=page)
+		<div id="header">				
+			헤더 영역(div, id=header)
+		</div>
+		<div id="content" class="sample_content">
+			컨텐츠 영역(div, id=content, class=sample_content)
+			<div> 
+				JavaScript란?(div)
+				<p id="data_1">1. 자바스크립트 Core(p, id=data_1)</p>
+				<p id="data_2">2. 자바스크립트  BOM(p, id=data_2)</p>
+				<p id="data_3">3. 자바스크립트 DOM(p, id=data_3)</p>
+				을 배운다는것
+			</div>
+			<div class="content_data">
+				자바스크립트에서 배울 내용(div, class=content_data)
+				<p>1. 자바스크립트 DOM(p)</p>
+				<p>2. 자바스크립트 Ajax(p)</p>
+			</div>				
+			<div class="content_data">
+				jQuery에서 배울 내용(div, class=content_data)
+				<p>1. jQuery DOM(p)</p>
+				<p>2. jQuery Ajax(p)</p>
+			</div>				
+		</div>
+		<div id="footer">				
+			푸터 영역(div, id=footer)
+		</div>
+	</div>	
+</body>
+
+
+</html>

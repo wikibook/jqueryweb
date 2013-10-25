@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Untitled Document</title>
+	
+	
+	<script>
+		/*
+			브라우저에 따른 XMLHttpRequest생성하기 - 방법1
+		*/
+		window.onload=function(){
+			var xmlHttp = createXMLHTTPObject();		
+		}
+		
+		createXMLHTTPObject=function(){
+			var		xhr		= null;
+			if(window.XMLHttpRequest)
+				xhr = new XMLHttpRequest();
+			else
+				xhr = new ActiveXObjecT("Microsoft.XMLHTTP");
+				
+			return xhr;
+		}
+		
+	</script>
+
+</head>
+
+<body>
+</body>
+</html>

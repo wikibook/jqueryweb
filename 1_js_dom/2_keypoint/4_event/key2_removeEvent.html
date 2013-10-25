@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body
+		{
+			font-size: 9pt;
+		}
+		#info{
+			border:1px solid #000000;
+						
+		}
+		#btn_target{
+			width:300px;
+			height:100px;
+		} 
+		
+	</style>
+	<script>
+		var info;
+		var btnTarget;
+		window.onload=function(){
+			/*
+				이벤트 제거, 등록.
+			*/
+			info = window.document.getElementById("info");
+			btnTarget = window.document.getElementById("btn_target");		
+		}		
+		
+		function on_ClickAdd(e){
+			addInfo("mouseover 이벤트 리스너 등록, 이제부터 mouseover이벤트 리스너가 실행됩니다.");			
+			// 이벤트 추가.
+			btnTarget.addEventListener("mouseover",on_MouseOver,false);	
+		}
+		
+		function on_ClickRemove(e){
+			addInfo("mouseover 이벤트 리스너 삭제, 더이상 mouseover 이벤트 리스너가 실행되지 않습니다.");
+			// 이벤트 제거.	
+			btnTarget.removeEventListener("mouseover", on_MouseOver,false);
+		}
+		
+		function on_MouseOver(e){
+			addInfo("mouseOver 이벤트 발생.");
+		}
+		
+		function addInfo(str){
+			info.innerHTML += str+"<br>";
+		}
+	</script>
+</head>
+
+<body>
+		<button onClick="on_ClickAdd(event)" >이벤트등록</button>
+        <button onClick="on_ClickRemove(event)">이벤트제거</button>
+        <div>
+        	<button id="btn_target">이곳에 마우스를 올려보세요.</button>
+        </div>
+        <div id="info">이곳에 이벤트 이벤트 정보가 출력됩니다.<br></div>
+	</body>
+</html>

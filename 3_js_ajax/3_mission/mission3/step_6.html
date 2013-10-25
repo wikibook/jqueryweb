@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<!--
+		Step #6
+			- 기존코드 실행
+			
+		Step #5
+			- 3단계 작업을 배너 정보의 개수만큼 반복
+			
+		Step #4
+			- 첫 번째 배너 패널 생성
+			
+		Step #3
+			- 배너 정보의 개수 파악
+			
+	 	Step #2
+	 		- jQuery, Ajax 개발 환경 설정
+	 		
+		Step #1
+			- 배너 목록을 JSON 포맷으로 생성
+	-->
+	<style>
+		#banner_container{
+			position:relative;
+			width:128px;
+			
+			height:128px;
+			border:1px solid #cccccc;
+			top:100px;
+			left:100px;
+			
+			overflow:hidden;		
+		}
+		
+		#banner_container div{
+			position:absolute;
+			width:128px;
+			height:128px;
+			
+			top:0;
+			top:0;
+			background:#ffffff;		
+		}
+		
+		
+	</style>
+	
+	<script  type="text/javascript" src="../libs/jquery-1.7.1.min.js"></script>
+	<script  type="text/javascript"  src="../libs/jquery.easing.1.3.js"></script>
+	
+	<script>
+	    var ANIMATION_DURATION = 500;
+	    var IMAGE_HEIGHT = 128;
+		var $banner_container;
+		var $bannerItems;
+		
+		var nCurrentIndex;
+		var imageHeight;
+		var nBannerCount;
+		var nTimerID;
+		
+		jQuery(document).ready(function(){
+			/*
+			기존 내용을 모두 없애줍니다.
+			
+			init();
+			setBannerPosition();
+			startMove();
+			*/
+			
+			startLoadFile();
+		});
+		
+		
+		function startLoadFile(){
+			// 1. 브라우저에 따른 XMLHttpRequest생성하기.
+			xmlHttp = createXMLHTTPObject();
+			
+			// 2. 요청에 대한 응답처리 이벤트 리스너 등록.
+			xmlHttp.onreadystatechange = on_ReadyStateChange;
+			
+			// 3.서버로 보낼 데이터 생성.
+			
+			// 4. GET 방식으로 데이터 보내기, 응답은 비동기로 클라이언트<->서버간의 연결 요청준비.
+			xmlHttp.open("GET", "banner.json", true);
+			
+			// 5. 실제 데이터 전송.
+			xmlHttp.send(null);
+		}
+		
+		// 1. 브라우저에 따른 XMLHttpRequest생성하기.
+		function createXMLHTTPObject(){
+			var xhr = null;
+			if (window.XMLHttpRequest) {
+				// IE7버전 이상, Chrome, Safari, Firefox, opera등 거의 대부분의 브라우저에서는
+				// XMLHttpRequest객체를 제공합니다.
+				xhr = new XMLHttpRequest();
+			}
+			else {
+				// IE6,IE5 버전에서는 아래와 같이 XMLHttpRequest객체를 생성해야 합니다.
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+				
+			return xhr;
+		}
+			
+			
+		// 6.응답처리.
+		function on_ReadyStateChange(){
+			// 4=데이터 전송 완료.(0=초기화전,1=로딩중,2=로딩됨,3=대화상태)
+			if(xmlHttp.readyState==4){
+				//200은 에러 없음.(404=페이지가 존재하지 않음)
+				if(xmlHttp.status==200){
+					// 서버에서 받은 값.
+					alert("서버에서 받은 원본 데이터 : "+xmlHttp.responseText);
+					
+					//7. 데이터 파싱처리.
+					createImages(xmlHttp.responseText);
+					
+					// 기존소스 실행.
+					init();
+					setBannerPosition();
+					startMove();
+				}
+				else{
+					alert("처리중 에러가 발생했습니다.");
+				}
+			}
+		}
+		
+		//7.JSON 포멧 데이터 처리.
+		function createImages(strInfo){
+			//1. JSON 포멧 문자열을 JavaScript Object로 변경시키기.
+			var objBannerInfo = eval("("+strInfo+")"); 
+			var banners	= objBannerInfo.rows;
+			
+			var strDOM = "";
+			for(var i=0;i<banners.length;i++){
+				//2.N번째 이미지 정보를 구합니다.
+				var banner = banners[i];
+			
+				//3. N번째 이미지 패널을 생성합니다.
+				strDOM +='<div>'
+				strDOM +='    <img src="'+banner.url+'" alt="'+banner.title+'">';
+				strDOM +='</div>';
+			}
+			
+			//4.배너 컨테이너에 3번째에서 생성한 이미지 패널을 추가합니다.
+			var $banner_container = $("#banner_container");
+			$banner_container.append(strDOM);
+		}
+		
+		//배너요소 정보들 초기화.
+		function init(){
+			this.$banner_container = $("#banner_container");
+			this.$bannerItems = $("#banner_container div");
+			this.nCurrentIndex = 0;
+			this.nTimerID = 0;
+			this.nBannerCount = this.$bannerItems.length;
+		}
+		
+		//시작시 배너 위치초기화.
+		function setBannerPosition(){
+			this.$bannerItems.css({opacity:0, top:IMAGE_HEIGHT});
+			this.$bannerItems.eq(0).css({opacity:1, top:0});
+		}
+		
+		// 자동롤링을 위한 타이머 시작.
+		function startMove(){	
+			this.nTimerID = setInterval(on_StartMove,1000)
+		}
+		
+		// 타이머 콜백함수.
+		function on_StartMove(){
+			if(nCurrentIndex+1>=nBannerCount)
+				showBannerAt(0);
+			else
+				showBannerAt(nCurrentIndex+1);			
+		}
+		
+		// nIndex에 해당하는 배너 보이기.
+		function showBannerAt(nIndex){
+		
+			if(nCurrentIndex==nIndex || nIndex<0 || nIndex>=nBannerCount)
+				return;
+			
+			var $objOld = $bannerItems.eq(nCurrentIndex);
+			var $objNew = $bannerItems.eq(nIndex);
+			
+			$objNew.css({top:IMAGE_HEIGHT, opacity:0});
+			
+			$objOld.animate({top:-IMAGE_HEIGHT,opacit:0},
+			ANIMATION_DURATION,"easeOutQuint");
+			 
+			$objNew.animate({top:0,opacity:1},
+			ANIMATION_DURATION,"easeOutQuint");
+	 		
+			nCurrentIndex = nIndex;
+		}
+	</script>
+</head>
+
+<body>
+	<div id="banner_container" >
+		<!-- 기존 배너들을 모두 제거-->
+	</div>          
+</body>
+</html>
+
+
+

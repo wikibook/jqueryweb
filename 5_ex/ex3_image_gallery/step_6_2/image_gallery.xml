@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<image_list>
+	<image>
+		<source>../img/1.jpg</source>
+		<thumb>../img/thumb/thumb_1.jpg</thumb>
+		<comment>1 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/2.jpg</source>
+		<thumb>../img/thumb/thumb_2.jpg</thumb>
+		<comment>2 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/3.jpg</source>
+		<thumb>../img/thumb/thumb_3.jpg</thumb>
+		<comment>3 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/4.jpg</source>
+		<thumb>../img/thumb/thumb_4.jpg</thumb>
+		<comment>4 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/5.jpg</source>
+		<thumb>../img/thumb/thumb_5.jpg</thumb>
+		<comment>5 이미지 정보입니다.</comment>
+	</image>
+	
+	<image>
+		<source>../img/6.jpg</source>
+		<thumb>../img/thumb/thumb_6.jpg</thumb>
+		<comment>6 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/7.jpg</source>
+		<thumb>../img/thumb/thumb_7.jpg</thumb>
+		<comment>7 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/8.jpg</source>
+		<thumb>../img/thumb/thumb_8.jpg</thumb>
+		<comment>8 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/9.jpg</source>
+		<thumb>../img/thumb/thumb_9.jpg</thumb>
+		<comment>9 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/10.jpg</source>
+		<thumb>../img/thumb/thumb_10.jpg</thumb>
+		<comment>10 이미지 정보입니다.</comment>
+	</image>
+	
+	<image>
+		<source>../img/11.jpg</source>
+		<thumb>../img/thumb/thumb_11.jpg</thumb>
+		<comment>11 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/12.jpg</source>
+		<thumb>../img/thumb/thumb_12.jpg</thumb>
+		<comment>12 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/13.jpg</source>
+		<thumb>../img/thumb/thumb_13.jpg</thumb>
+		<comment>13 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/14.jpg</source>
+		<thumb>../img/thumb/thumb_14.jpg</thumb>
+		<comment>14 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/15.jpg</source>
+		<thumb>../img/thumb/thumb_15.jpg</thumb>
+		<comment>15 이미지 정보입니다.</comment>
+	</image>
+	
+	<image>
+		<source>../img/16.jpg</source>
+		<thumb>../img/thumb/thumb_16.jpg</thumb>
+		<comment>16 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/17.jpg</source>
+		<thumb>../img/thumb/thumb_17.jpg</thumb>
+		<comment>17 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/18.jpg</source>
+		<thumb>../img/thumb/thumb_18.jpg</thumb>
+		<comment>18 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/19.jpg</source>
+		<thumb>../img/thumb/thumb_19.jpg</thumb>
+		<comment>19 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/20.jpg</source>
+		<thumb>../img/thumb/thumb_20.jpg</thumb>
+		<comment>20 이미지 정보입니다.</comment>
+	</image>
+	
+	
+	<image>
+		<source>../img/21.jpg</source>
+		<thumb>../img/thumb/thumb_21.jpg</thumb>
+		<comment>21 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/22.jpg</source>
+		<thumb>../img/thumb/thumb_22.jpg</thumb>
+		<comment>22 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/23.jpg</source>
+		<thumb>../img/thumb/thumb_23.jpg</thumb>
+		<comment>23 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/24.jpg</source>
+		<thumb>../img/thumb/thumb_24.jpg</thumb>
+		<comment>24 이미지 정보입니다.</comment>
+	</image>
+	<image>
+		<source>../img/25.jpg</source>
+		<thumb>../img/thumb/thumb_25.jpg</thumb>
+		<comment>25 이미지 정보입니다.</comment>
+	</image>
+
+</image_list>	

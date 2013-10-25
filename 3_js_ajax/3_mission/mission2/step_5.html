@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<!--	
+		Step #5
+			- 3단계의 작업을 이미지 정보 개수만큼 반복	
+		Step #4
+			- 첫 번째 이미지 패널 생성
+			
+		Step #3
+			- 이미지 정보 개수 파악
+			
+		Step #2
+			- jQuery, Ajax개발 환경 설정
+			
+		Step #1
+			- XML 포맷을 JSON 포맷으로 변경
+	-->
+	<style>
+		.image_panel{
+			border:1px solid #eeeeee;
+			text-align:center;
+			margin:5px;
+		}
+		.image_panel .title{
+			font-size:9pt;
+			color:#ff0000;
+		}
+		
+	</style>
+	</style>
+	<script  type="text/javascript"  src="../libs/jquery-1.7.1.min.js"></script>
+	
+	<script>
+		var xmlHttp;
+		window.onload=function(){
+			$("#btn_load").click(function(){
+				startLoadFile();	
+			});
+			
+		}
+		
+		function startLoadFile(){
+			// 1. 브라우저에 따른 XMLHttpRequest생성하기.
+			xmlHttp = createXMLHTTPObject();
+			
+			// 2. 요청에 대한 응답처리 이벤트 리스너 등록.
+			xmlHttp.onreadystatechange=on_ReadyStateChange;
+			
+			// 3.서버로 보낼 데이터 생성.
+			
+			// 4. GET 방식으로 데이터 보내기, 응답은 비동기로 클라이언트<->서버간의 연결 요청준비.
+			xmlHttp.open("GET", "images.json", true);
+			
+			// 5. 실제 데이터 전송.
+			xmlHttp.send(null);
+		}
+		
+		// 1. 브라우저에 따른 XMLHttpRequest생성하기.
+		function createXMLHTTPObject(){
+			var xhr = null;
+			if (window.XMLHttpRequest) {
+				// IE7버전 이상, Chrome, Safari, Firefox, opera등 거의 대부분의 브라우저에서는
+				// XMLHttpRequest객체를 제공합니다.
+				xhr = new XMLHttpRequest();
+			}
+			else {
+				// IE6,IE5 버전에서는 아래와 같이 XMLHttpRequest객체를 생성해야 합니다.
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+				
+			return xhr;
+		}
+			
+			
+		// 6.응답처리.
+		function on_ReadyStateChange(){
+			// 4=데이터 전송 완료.(0=초기화전,1=로딩중,2=로딩됨,3=대화상태)
+			if(xmlHttp.readyState==4){
+				//200은 에러 없음.(404=페이지가 존재하지 않음)
+				if(xmlHttp.status==200){
+					// 서버에서 받은 값.
+					alert("서버에서 받은 원본 데이터 : "+xmlHttp.responseText);
+					
+					//7. 데이터 파싱처리.
+					createImages(xmlHttp.responseText);
+				}
+				else{
+					alert("처리중 에러가 발생했습니다.");
+				}
+			}
+		}
+		
+		//7.JSON 포멧 데이터 처리.
+		function createImages(strInfo){
+			//1. JSON 포멧 문자열을 JavaScript Object로 변경시키기.
+			var objImageInfo = eval("("+strInfo+")"); 
+			var images = objImageInfo.rows;
+			
+			var strDOM = "";
+			for(var i=0;i<images.length;i++){
+				//2. N번째 이미지 정보 구하기.
+				var image =images[i];
+				
+				//3. N번째 이미지 패널 생성하기.			
+				strDOM +='<div class="image_panel">'
+				strDOM +='    <img src="'+image.url+'">';
+				strDOM +='    <p class="title">'+image.title+'</p>';
+				strDOM +='</div>';						
+			}
+			
+			//4. 이미지 컨테이너에 3번째에서 생성한 이미지 패널들을 추가하기.
+			var $imageContainer = $("#image_container");
+			$imageContainer.append(strDOM);
+		}
+		
+	</script>
+</head>
+
+	<body>
+		<div>
+			<button id="btn_load">이미지 읽어들이기</button>
+		</div>
+		<div id="image_container">
+			<!-- 1. 이곳에 이미지를 넣어주세요-->
+		</div>
+		
+		<!-- 2. 이 내용은 이미지 패널 템플릿입니다. -->
+		<div style="display:none;" id="image_panel_template">
+			<div class="image_panel">
+				<img >
+				<p class="title"></p>
+			</div>
+		</div>
+	</body>
+
+</html>
+
+
